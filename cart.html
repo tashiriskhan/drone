@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | InGraviton</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { brand: { dark: '#1a1d21', navy: '#0f172a', blue: '#3b82f6' } }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background: linear-gradient(180deg, #f3f4f6 0%, #ffffff 100%); }
+        .nav-scrolled { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 text-gray-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="w-8 h-8 bg-gradient-to-tr from-brand-dark to-brand-blue rounded-lg flex items-center justify-center text-white">
+                        <i class="fa-solid fa-paper-plane text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold text-brand-dark">InGraviton</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="text-gray-500 hover:text-brand-dark"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <button class="text-brand-dark relative"><i class="fa-solid fa-cart-shopping"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CART SECTION -->
+    <section class="pt-32 pb-20 bg-gray-50 min-h-screen">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h1 class="text-3xl font-bold text-brand-dark mb-8">Shopping Cart</h1>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Cart Items -->
+                <div class="lg:col-span-2 space-y-4">
+                    
+                    <!-- Item 1 -->
+                    <div class="bg-white rounded-2xl p-6 shadow-soft flex gap-6">
+                        <div class="w-24 h-24 bg-gray-100 rounded-xl flex-shrink-0 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1507581134177-2b85a9886043?q=80&w=200" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between mb-2">
+                                <h3 class="font-semibold text-brand-dark">Phantom X1 Carbon</h3>
+                                <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4">Professional Grade Frame</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center border border-gray-200 rounded-lg">
+                                    <button class="px-3 py-1 hover:bg-gray-50">-</button>
+                                    <span class="px-3 py-1 font-medium">1</span>
+                                    <button class="px-3 py-1 hover:bg-gray-50">+</button>
+                                </div>
+                                <span class="font-bold text-brand-dark">$499.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="bg-white rounded-2xl p-6 shadow-soft flex gap-6">
+                        <div class="w-24 h-24 bg-gray-100 rounded-xl flex-shrink-0 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=200" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between mb-2">
+                                <h3 class="font-semibold text-brand-dark">Flight Controller V4</h3>
+                                <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4">Advanced Autopilot</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center border border-gray-200 rounded-lg">
+                                    <button class="px-3 py-1 hover:bg-gray-50">-</button>
+                                    <span class="px-3 py-1 font-medium">2</span>
+                                    <button class="px-3 py-1 hover:bg-gray-50">+</button>
+                                </div>
+                                <span class="font-bold text-brand-dark">$498.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Continue Shopping -->
+                    <button onclick="window.location.href='shop.html'" class="text-brand-blue font-medium hover:underline flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+                    </button>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-2xl p-6 shadow-soft sticky top-24">
+                        <h2 class="text-lg font-bold text-brand-dark mb-6">Order Summary</h2>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between text-gray-600">
+                                <span>Subtotal</span>
+                                <span>$997.00</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600">
+                                <span>Shipping</span>
+                                <span class="text-green-600">Free</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600">
+                                <span>Tax</span>
+                                <span>$79.76</span>
+                            </div>
+                            <div class="border-t border-gray-200 pt-4 flex justify-between text-lg font-bold text-brand-dark">
+                                <span>Total</span>
+                                <span>$1,076.76</span>
+                            </div>
+                        </div>
+
+                        <button onclick="window.location.href='checkout.html'" class="w-full bg-brand-dark text-white font-semibold py-4 rounded-xl hover:bg-gray-800 hover:shadow-glow transition-all duration-300 mb-4">
+                            Proceed to Checkout
+                        </button>
+
+                        <div class="flex items-center justify-center gap-2 text-sm text-gray-500">
+                            <i class="fa-solid fa-lock"></i>
+                            <span>Secure checkout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('nav-scrolled');
+            else navbar.classList.remove('nav-scrolled');
+        });
+    </script>
+</body>
+</html>
