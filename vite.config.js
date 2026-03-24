@@ -17,6 +17,7 @@ export default defineConfig({
         { filename: 'about.html', template: 'about.html' },
         { filename: 'support.html', template: 'support.html' },
         { filename: 'cart.html', template: 'cart.html' },
+        { filename: 'custom-build.html', template: 'custom-build.html' },
       ],
     }),
   ],

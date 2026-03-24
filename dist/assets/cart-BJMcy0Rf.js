@@ -1,4 +1,4 @@
-import{t as e}from"./cart-BjzdhNw4.js";function t(){let n=document.getElementById(`cartItems`),r=document.getElementById(`emptyCart`),i=document.getElementById(`cartSummary`),a=document.getElementById(`subtotal`),o=document.getElementById(`total`);if(e.items.length===0){n.innerHTML=``,r.classList.remove(`hidden`),i.classList.add(`hidden`);return}r.classList.add(`hidden`),i.classList.remove(`hidden`),n.innerHTML=e.items.map(e=>`
+import{t as e}from"./cart-JCPD7Io_.js";function t(){let n=document.getElementById(`cartItems`),r=document.getElementById(`emptyCart`),i=document.getElementById(`cartSummary`),a=document.getElementById(`subtotal`),o=document.getElementById(`total`);if(e.items.length===0){n.innerHTML=``,r.classList.remove(`hidden`),i.classList.add(`hidden`);return}r.classList.add(`hidden`),i.classList.remove(`hidden`),n.innerHTML=e.items.map(e=>`
                 <div class="bg-white rounded-2xl p-4 shadow-soft flex items-center gap-4">
                     <img src="${e.image}" alt="${e.name}" class="w-24 h-24 object-cover rounded-xl">
                     <div class="flex-1">
