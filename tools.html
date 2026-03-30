@@ -4,11 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tools | InGraviton</title>
-    
+    <meta name="description" content="Professional drone assembly and maintenance tools. Soldering stations, screwdrivers, testers and more.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/tools.html">
+    <meta property="og:title" content="Drone Tools | InGraviton">
+    <meta property="og:description" content="Professional drone assembly and maintenance tools for professionals and enthusiasts.">
+    <meta property="og:image" content="https://plus.unsplash.com/premium_photo-1714618849685-89cad85746b1?q=80&w=1200&auto=format&fit=crop">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Drone Tools | InGraviton">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/src/css/styles.css">
 </head>
@@ -64,6 +79,21 @@
                     <a href="tools.html" class="block py-2 text-gray-600 hover:text-brand-dark">Tools</a>
                     <a href="about.html" class="block py-2 text-gray-600 hover:text-brand-dark">About</a>
                     <a href="support.html" class="block py-2 text-gray-600 hover:text-brand-dark">Support</a>
+                    <a href="orders.html" id="mobileOrdersLink" class="block py-2 text-gray-600 hover:text-brand-dark hidden">My Orders</a>
+                    <a href="admin.html" id="mobileAdminLink" class="block py-2 text-gray-600 hover:text-brand-dark hidden">Admin</a>
+                    <div class="pt-4 pb-2 flex items-center gap-6 border-t border-gray-200">
+                        <a href="wishlist.html" class="text-gray-600 hover:text-brand-dark relative">
+                            <i class="fa-solid fa-heart"></i>
+                            <span class="wishlist-badge absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
+                        </a>
+                        <a href="cart.html" class="text-gray-600 hover:text-brand-dark relative">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-badge absolute -top-1 -right-1 w-4 h-4 bg-brand-blue text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
+                        </a>
+                    </div>
+                    <div class="pt-2 border-t border-gray-200">
+                        <a href="login.html" id="mobileAuthLink" class="block py-2 text-gray-600">Login</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,6 +108,42 @@
 
     <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="bg-white rounded-2xl p-4 mb-8 shadow-soft">
+                <div class="flex flex-col lg:flex-row gap-4">
+                    <div class="flex-1">
+                        <div class="relative">
+                            <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" id="searchInput" placeholder="Search tools..." class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <select id="sortFilter" class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                            <option value="">Sort By</option>
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                            <option value="name">Name: A-Z</option>
+                            <option value="rating">Highest Rated</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-4 mt-4">
+                    <div class="flex items-center gap-2">
+                        <label class="text-sm text-gray-500">Min Price:</label>
+                        <input type="number" id="minPrice" placeholder="₹0" class="w-28 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-blue outline-none">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label class="text-sm text-gray-500">Max Price:</label>
+                        <input type="number" id="maxPrice" placeholder="₹50000" class="w-28 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-blue outline-none">
+                    </div>
+                    <button id="applyFilters" class="px-6 py-2 bg-brand-blue text-white rounded-lg hover:bg-blue-600 transition">
+                        Apply Filters
+                    </button>
+                    <button id="clearFilters" class="px-6 py-2 text-gray-600 hover:text-brand-dark transition">
+                        Clear All
+                    </button>
+                </div>
+            </div>
+
             <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="col-span-full text-center py-16">
                     <i class="fa-solid fa-spinner fa-spin text-4xl text-gray-400"></i>
@@ -158,6 +224,16 @@
         import { wishlist } from './src/js/wishlist.js';
 
         let currentPage = 1;
+        let searchTimeout;
+
+        function getFilters() {
+            return {
+                search: document.getElementById('searchInput')?.value.trim() || '',
+                sort: document.getElementById('sortFilter')?.value || '',
+                minPrice: document.getElementById('minPrice')?.value || '',
+                maxPrice: document.getElementById('maxPrice')?.value || ''
+            };
+        }
 
         function renderPagination(paginationData, currentPage) {
             const pagination = document.getElementById('pagination');
@@ -193,6 +269,7 @@
             currentPage = page;
             const grid = document.getElementById('productsGrid');
             const pagination = document.getElementById('pagination');
+            const filters = getFilters();
 
             grid.innerHTML = `
                 <div class="col-span-full text-center py-16">
@@ -203,7 +280,13 @@
             pagination.innerHTML = '';
 
             try {
-                const result = await api.products.getAll({ category: 'tools', page, limit: 12 });
+                const params = { category: 'tools', page, limit: 12 };
+                if (filters.search) params.search = filters.search;
+                if (filters.sort) params.sort = filters.sort;
+                if (filters.minPrice) params.minPrice = filters.minPrice;
+                if (filters.maxPrice) params.maxPrice = filters.maxPrice;
+
+                const result = await api.products.getAll(params);
                 const products = result.data;
                 const paginationData = result.pagination;
                 
@@ -310,6 +393,28 @@
             wishlist.init();
 
             document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Filter event listeners
+            document.getElementById('applyFilters')?.addEventListener('click', () => {
+                loadTools(1);
+            });
+
+            document.getElementById('clearFilters')?.addEventListener('click', () => {
+                document.getElementById('searchInput').value = '';
+                document.getElementById('sortFilter').value = '';
+                document.getElementById('minPrice').value = '';
+                document.getElementById('maxPrice').value = '';
+                loadTools(1);
+            });
+
+            document.getElementById('searchInput')?.addEventListener('input', () => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => loadTools(1), 300);
+            });
+
+            document.getElementById('sortFilter')?.addEventListener('change', () => {
+                loadTools(1);
+            });
 
             document.getElementById('newsletterForm')?.addEventListener('submit', async (e) => {
                 e.preventDefault();

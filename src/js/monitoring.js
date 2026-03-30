@@ -21,16 +21,12 @@ if (SENTRY_DSN) {
 
     // Global error handler
     window.addEventListener('error', (event) => {
-        console.error('Global error:', event.error);
         // Sentry.captureException(event.error);
     });
 
     window.addEventListener('unhandledrejection', (event) => {
-        console.error('Unhandled rejection:', event.reason);
         // Sentry.captureException(event.reason);
     });
-
-    console.log('Sentry error monitoring initialized');
 }
 
 // Performance monitoring
@@ -38,7 +34,7 @@ if (import.meta.env.PROD) {
     window.addEventListener('load', () => {
         if ('performance' in window) {
             const perfData = performance.getEntriesByType('navigation')[0];
-            console.log('Page load time:', perfData.loadEventEnd - perfData.startTime, 'ms');
+            // Log performance metrics in production if needed
         }
     });
 }

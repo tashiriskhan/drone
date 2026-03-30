@@ -19,7 +19,7 @@ const wishlist = {
 
             // Sync to server if logged in
             if (api.isAuthenticated()) {
-                api.wishlist.add(product.id).catch(console.error);
+                api.wishlist.add(product.id).catch(() => {});
             }
             return true;
         }
@@ -33,7 +33,7 @@ const wishlist = {
 
         // Sync to server if logged in
         if (api.isAuthenticated()) {
-            api.wishlist.remove(productId).catch(console.error);
+            api.wishlist.remove(productId).catch(() => {});
         }
     },
 
@@ -52,7 +52,7 @@ const wishlist = {
 
         // Clear on server if logged in
         if (api.isAuthenticated()) {
-            api.wishlist.clear().catch(console.error);
+            api.wishlist.clear().catch(() => {});
         }
     },
 
@@ -85,28 +85,12 @@ const wishlist = {
                 });
                 localStorage.setItem('wishlist', JSON.stringify(this.items));
             } catch (error) {
-                console.error('Failed to sync wishlist:', error);
+                // Silent fail - wishlist will use local state
             }
         }
 
         this.updateBadge();
     }
-};
-
-window.showToast = function(message) {
-    const existing = document.querySelector('.cart-toast');
-    if (existing) existing.remove();
-
-    const toast = document.createElement('div');
-    toast.className = 'cart-toast fixed bottom-4 right-4 bg-brand-dark text-white px-6 py-3 rounded-lg shadow-lg z-50';
-    toast.textContent = message;
-    toast.style.animation = 'fadeIn 0.3s ease';
-    document.body.appendChild(toast);
-
-    setTimeout(() => {
-        toast.style.animation = 'fadeOut 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-    }, 2000);
 };
 
 export { wishlist };

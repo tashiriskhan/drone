@@ -45,7 +45,7 @@ const cart = {
             // Sync all items to server first (parallel)
             await Promise.allSettled(
                 itemsToSyncToServer.map(item =>
-                    api.cart.add(item.id, item.quantity).catch(e => console.error('Failed to sync item:', e))
+                    api.cart.add(item.id, item.quantity).catch(() => {})
                 )
             );
 
@@ -56,7 +56,7 @@ const cart = {
             localStorage.removeItem('cart');
 
         } catch (error) {
-            console.error('Failed to sync cart:', error);
+            // Silent fail - cart will use local state
             this.items = [];
             this.subtotal = 0;
         }

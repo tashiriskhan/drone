@@ -1,4 +1,5 @@
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+export { API_BASE };
 
 const api = {
     token: localStorage.getItem('token'),
@@ -330,6 +331,36 @@ const api = {
                 throw new Error(data.message || 'Upload failed');
             }
             return data;
+        }
+    },
+
+    heroSlides: {
+        async getAll() {
+            return api.request('/hero-slides');
+        },
+
+        async getAllAdmin() {
+            return api.request('/hero-slides/all');
+        },
+
+        async create(data) {
+            return api.request('/hero-slides', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+        },
+
+        async update(id, data) {
+            return api.request(`/hero-slides/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify(data)
+            });
+        },
+
+        async delete(id) {
+            return api.request(`/hero-slides/${id}`, {
+                method: 'DELETE'
+            });
         }
     }
 };

@@ -20,11 +20,13 @@ import reviewRoutes from './routes/reviews.js';
 import wishlistRoutes from './routes/wishlist.js';
 import couponRoutes from './routes/coupons.js';
 import paymentRoutes from './routes/payment.js';
+import heroSlideRoutes from './routes/heroSlides.js';
 import { protect, admin } from './middleware/auth.js';
 import User from './models/User.js';
 import Product from './models/Product.js';
 import Order from './models/Order.js';
 import Newsletter from './models/Newsletter.js';
+import HeroSlide from './models/HeroSlide.js';
 
 dotenv.config({ path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.env') });
 
@@ -83,6 +85,7 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/coupons', couponRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/hero-slides', heroSlideRoutes);
 
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'InGraviton API is running' });

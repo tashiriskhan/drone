@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | InGraviton</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/admin.html">
+    <meta property="og:title" content="Admin Dashboard | InGraviton">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -70,6 +78,10 @@
                             <button class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition" data-section="newsletter">
                                 <i class="fa-solid fa-envelope text-gray-400"></i>
                                 <span>Newsletter</span>
+                            </button>
+                            <button class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition" data-section="hero-slides">
+                                <i class="fa-solid fa-images text-gray-400"></i>
+                                <span>Hero Slides</span>
                             </button>
                         </div>
                     </nav>
@@ -319,6 +331,22 @@
                             <div id="newsletterPagination" class="flex justify-center gap-2 p-4 border-t border-gray-100"></div>
                         </div>
                     </div>
+
+                    <div id="section-hero-slides" class="section-content hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h1 class="text-2xl font-bold text-brand-dark">Hero Slides</h1>
+                            <button onclick="openHeroSlideModal()" class="bg-brand-blue text-white px-5 py-2.5 rounded-xl hover:bg-blue-600 transition flex items-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Add Slide
+                            </button>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                            <div id="heroSlidesList" class="overflow-x-auto">
+                                <div class="p-6 text-center text-gray-400">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -424,6 +452,7 @@
             else if (section === 'orders') loadOrders();
             else if (section === 'custom-builds') loadCustomBuilds();
             else if (section === 'newsletter') loadNewsletter();
+            else if (section === 'hero-slides') loadHeroSlides();
         };
 
         function renderPagination(paginationId, infoId, buttonsId, state, onPageChange) {
@@ -477,17 +506,12 @@
 
         async function loadStats() {
             try {
-                const [usersRes, productsRes, ordersRes, newsletterRes] = await Promise.all([
-                    fetch('http://localhost:5000/api/users', { headers: { 'Authorization': `Bearer ${api.token}` } }),
-                    fetch('http://localhost:5000/api/products', { headers: { 'Authorization': `Bearer ${api.token}` } }),
-                    fetch('http://localhost:5000/api/orders', { headers: { 'Authorization': `Bearer ${api.token}` } }),
-                    fetch('http://localhost:5000/api/newsletter', { headers: { 'Authorization': `Bearer ${api.token}` } })
+                const [usersData, productsData, ordersData, newsletterData] = await Promise.all([
+                    api.request('/users'),
+                    api.request('/products'),
+                    api.request('/orders'),
+                    api.request('/newsletter')
                 ]);
-
-                const usersData = await usersRes.json();
-                const productsData = await productsRes.json();
-                const ordersData = await ordersRes.json();
-                const newsletterData = await newsletterRes.json();
 
                 const users = usersData.data || [];
                 const products = productsData.data || [];
@@ -516,10 +540,7 @@
         async function loadRecentOrders() {
             const container = document.getElementById('recentOrders');
             try {
-                const res = await fetch('http://localhost:5000/api/orders', {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request('/orders');
                 const orders = (data.data || []).slice(0, 5);
 
                 if (orders.length === 0) {
@@ -568,10 +589,7 @@
                 if (category) params.append('category', category);
                 if (stockFilter) params.append('stockFilter', stockFilter);
 
-                const res = await fetch(`http://localhost:5000/api/products?${params}`, {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(`/products?${params}`);
                 const products = data.data || [];
                 const pagination = data.pagination || { currentPage: 1, totalPages: 1, totalProducts: 0 };
 
@@ -664,10 +682,7 @@
 
             if (id) {
                 title.textContent = 'Edit Product';
-                const res = await fetch(`http://localhost:5000/api/products/${id}`, {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(`/products/${id}`);
                 if (data.success) product = { ...product, ...data.data, specifications: { ...product.specifications, ...data.data.specifications } };
             } else {
                 title.textContent = 'Add New Product';
@@ -834,11 +849,10 @@
                 };
 
                 try {
-                    const url = id ? `/api/products/${id}` : '/api/products';
+                    const url = id ? `/products/${id}` : '/products';
                     const method = id ? 'PUT' : 'POST';
-                    await fetch(`http://localhost:5000${url}`, {
+                    await api.request(url, {
                         method,
-                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${api.token}` },
                         body: JSON.stringify(productData)
                     });
                     closeModal();
@@ -862,10 +876,7 @@
                 if (search) params.append('search', search);
                 if (roleFilter) params.append('role', roleFilter);
 
-                const res = await fetch(`http://localhost:5000/api/users?${params}`, {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(`/users?${params}`);
                 const users = data.data || [];
                 const pagination = data.pagination || { currentPage: 1, totalPages: 1, totalUsers: 0 };
 
@@ -941,10 +952,7 @@
                 if (search) params.append('search', search);
                 if (statusFilter) params.append('status', statusFilter);
 
-                const res = await fetch(`http://localhost:5000/api/orders?${params}`, {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(`/orders?${params}`);
                 const orders = data.data || [];
                 const pagination = data.pagination || { currentPage: 1, totalPages: 1, totalOrders: 0 };
 
@@ -1021,10 +1029,7 @@
             const content = document.getElementById('modalContent');
 
             try {
-                const res = await fetch(`http://localhost:5000/api/orders/${id}`, {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(`/orders/${id}`);
                 const order = data.data;
 
                 title.textContent = `Order #${order._id.slice(-8).toUpperCase()}`;
@@ -1104,9 +1109,8 @@
                     e.preventDefault();
                     const formData = new FormData(e.target);
                     try {
-                        await fetch(`http://localhost:5000/api/orders/${id}`, {
+                        await api.request(`/orders/${id}`, {
                             method: 'PUT',
-                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${api.token}` },
                             body: JSON.stringify({ status: formData.get('status') })
                         });
                         closeModal();
@@ -1132,10 +1136,7 @@
                 const params = new URLSearchParams({ page, limit: 10 });
                 if (statusFilter) params.append('status', statusFilter);
 
-                const res = await fetch(`http://localhost:5000/api/custom-build?${params}`, {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(`/custom-build?${params}`);
                 const builds = data.data || [];
                 const pagination = data.pagination || { currentPage: 1, totalPages: 1, total: 0 };
 
@@ -1207,10 +1208,7 @@
             const content = document.getElementById('modalContent');
 
             try {
-                const res = await fetch(`http://localhost:5000/api/custom-build/${id}`, {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(`/custom-build/${id}`);
                 const build = data.data;
 
                 title.textContent = 'Custom Build Request';
@@ -1288,9 +1286,8 @@
                     e.preventDefault();
                     const formData = new FormData(e.target);
                     try {
-                        await fetch(`http://localhost:5000/api/custom-build/${id}`, {
+                        await api.request(`/custom-build/${id}`, {
                             method: 'PUT',
-                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${api.token}` },
                             body: JSON.stringify({
                                 status: formData.get('status'),
                                 quotedPrice: parseFloat(formData.get('quotedPrice')) || undefined,
@@ -1316,14 +1313,11 @@
             try {
                 const search = document.getElementById('newsletterSearch')?.value || '';
                 const status = paginationState.newsletter.status || '';
-                let url = `http://localhost:5000/api/newsletter?includeUnsubscribed=true&page=${page}&limit=10`;
+                let url = `/newsletter?includeUnsubscribed=true&page=${page}&limit=10`;
                 if (search) url += '&search=' + encodeURIComponent(search);
                 if (status) url += '&status=' + status;
 
-                const res = await fetch(url, {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(url);
                 window.allSubscribers = data.data || [];
 
                 const pagination = data.pagination || { currentPage: 1, totalPages: 1, totalSubscribers: 0 };
@@ -1484,17 +1478,12 @@
                 const name = formData.get('name').trim();
 
                 try {
-                    const res = await fetch('http://localhost:5000/api/newsletter', {
+                    const data = await api.request('/newsletter', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${api.token}`
-                        },
                         body: JSON.stringify({ email, name })
                     });
-                    const data = await res.json();
 
-                    if (!res.ok) {
+                    if (!data.success) {
                         throw new Error(data.message || 'Failed to add subscriber');
                     }
 
@@ -1543,17 +1532,12 @@
                 const subscribed = formData.get('subscribed') === 'true';
 
                 try {
-                    const res = await fetch(`http://localhost:5000/api/newsletter/${id}`, {
+                    const data = await api.request(`/newsletter/${id}`, {
                         method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${api.token}`
-                        },
                         body: JSON.stringify({ email, subscribed })
                     });
-                    const data = await res.json();
 
-                    if (!res.ok) {
+                    if (!data.success) {
                         throw new Error(data.message || 'Failed to update subscriber');
                     }
 
@@ -1568,13 +1552,9 @@
 
         window.toggleSubscriberStatus = async function(id) {
             try {
-                const res = await fetch(`http://localhost:5000/api/newsletter/${id}/toggle`, {
-                    method: 'PATCH',
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(`/newsletter/${id}/toggle`, { method: 'PATCH' });
 
-                if (!res.ok) {
+                if (!data.success) {
                     throw new Error(data.message || 'Failed to toggle status');
                 }
 
@@ -1591,10 +1571,7 @@
 
             document.getElementById('confirmDeleteBtn').onclick = async () => {
                 try {
-                    const res = await fetch(`http://localhost:5000/api/newsletter/${id}`, {
-                        method: 'DELETE',
-                        headers: { 'Authorization': `Bearer ${api.token}` }
-                    });
+                    await api.request(`/newsletter/${id}`, { method: 'DELETE' });
 
                     if (!res.ok) {
                         throw new Error('Failed to delete subscriber');
@@ -1609,21 +1586,259 @@
             };
         };
 
+        // Hero Slides Management
+        window.loadHeroSlides = async function() {
+            const list = document.getElementById('heroSlidesList');
+            list.innerHTML = `<div class="p-6 text-center text-gray-400"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>`;
+
+            try {
+                const result = await api.heroSlides.getAllAdmin();
+                const slides = result.data;
+
+                if (slides.length === 0) {
+                    list.innerHTML = `<div class="p-8 text-center text-gray-500"><i class="fa-solid fa-images text-4xl mb-3 text-gray-300"></i><p>No hero slides yet. Add your first slide!</p></div>`;
+                    return;
+                }
+
+                list.innerHTML = `
+                    <table class="w-full">
+                        <thead class="bg-gray-50 border-b border-gray-100">
+                            <tr>
+                                <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">Image</th>
+                                <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">Title</th>
+                                <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">Order</th>
+                                <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">Status</th>
+                                <th class="text-right px-6 py-4 text-sm font-semibold text-gray-600">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            ${slides.map(slide => `
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4">
+                                        <img src="${slide.image}" alt="Slide" class="w-32 h-20 object-cover rounded-lg">
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-medium text-gray-800">${slide.title || '-'}</div>
+                                        <div class="text-sm text-gray-500 truncate max-w-xs">${slide.subtitle || '-'}</div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 bg-gray-100 rounded text-sm">${slide.order}</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 rounded text-xs font-medium ${slide.active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                            ${slide.active ? 'Active' : 'Inactive'}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button onclick="openEditHeroSlideModal('${slide._id}')" class="text-brand-blue hover:text-blue-700 mr-3">
+                                            <i class="fa-solid fa-edit"></i>
+                                        </button>
+                                        <button onclick="confirmDeleteHeroSlide('${slide._id}', '${slide.title || 'Slide'}')" class="text-red-500 hover:text-red-700">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            } catch (error) {
+                list.innerHTML = `<div class="p-6 text-center text-red-500">Failed to load hero slides: ${error.message}</div>`;
+            }
+        };
+
+        window.openHeroSlideModal = function(id = null) {
+            const modal = document.getElementById('modal');
+            const isEdit = !!id;
+
+            if (isEdit) {
+                api.heroSlides.getAllAdmin().then(result => {
+                    const slide = result.data.find(s => s._id === id);
+                    if (!slide) return;
+                    document.getElementById('modalTitle').textContent = 'Edit Hero Slide';
+                    document.getElementById('modalContent').innerHTML = `
+                        <form id="heroSlideForm" class="space-y-4">
+                            <input type="hidden" name="id" value="${slide._id}">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Image URL *</label>
+                                <input type="url" name="image" value="${slide.image}" required placeholder="https://example.com/image.jpg" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Title (e.g. "DRONE SOLUTIONS")</label>
+                                    <input type="text" name="title" value="${slide.title || 'DRONE SOLUTIONS'}" placeholder="DRONE SOLUTIONS" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Subtitle</label>
+                                    <input type="text" name="subtitle" value="${slide.subtitle || ''}" placeholder="Built for Precision" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea name="description" rows="2" placeholder="Description text shown below subtitle" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">${slide.description || ''}</textarea>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Button 1 Text</label>
+                                    <input type="text" name="ctaText" value="${slide.ctaText || 'Shop Now'}" placeholder="Shop Now" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Button 1 Link</label>
+                                    <input type="text" name="ctaLink" value="${slide.ctaLink || 'products.html'}" placeholder="products.html" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Button 2 Text</label>
+                                    <input type="text" name="ctaSecondaryText" value="${slide.ctaSecondaryText || 'Custom Build'}" placeholder="Custom Build" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Button 2 Link</label>
+                                    <input type="text" name="ctaSecondaryLink" value="${slide.ctaSecondaryLink || 'custom-build.html'}" placeholder="custom-build.html" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Order (display order)</label>
+                                    <input type="number" name="order" value="${slide.order || 0}" min="0" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                                <div class="flex items-center pt-6">
+                                    <input type="checkbox" name="active" id="slideActive" ${slide.active ? 'checked' : ''} class="rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
+                                    <label for="slideActive" class="ml-2 text-sm text-gray-600">Active</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full bg-brand-blue text-white py-3 rounded-xl font-medium hover:bg-blue-600 transition">
+                                Save Changes
+                            </button>
+                        </form>
+                    `;
+                    modal.classList.remove('hidden');
+                    setupHeroSlideFormSubmit();
+                });
+            } else {
+                document.getElementById('modalTitle').textContent = 'Add Hero Slide';
+                document.getElementById('modalContent').innerHTML = `
+                    <form id="heroSlideForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Image URL *</label>
+                            <input type="url" name="image" required placeholder="https://example.com/image.jpg" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Title (e.g. "DRONE SOLUTIONS")</label>
+                                <input type="text" name="title" value="DRONE SOLUTIONS" placeholder="DRONE SOLUTIONS" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Subtitle</label>
+                                <input type="text" name="subtitle" value="Built for Precision" placeholder="Built for Precision" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <textarea name="description" rows="2" placeholder="Description text shown below subtitle" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none"></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Button 1 Text</label>
+                                <input type="text" name="ctaText" value="Shop Now" placeholder="Shop Now" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Button 1 Link</label>
+                                <input type="text" name="ctaLink" value="products.html" placeholder="products.html" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Button 2 Text</label>
+                                <input type="text" name="ctaSecondaryText" value="Custom Build" placeholder="Custom Build" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Button 2 Link</label>
+                                <input type="text" name="ctaSecondaryLink" value="custom-build.html" placeholder="custom-build.html" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Order (display order)</label>
+                                <input type="number" name="order" value="0" min="0" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div class="flex items-center pt-6">
+                                <input type="checkbox" name="active" id="slideActive" checked class="rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
+                                <label for="slideActive" class="ml-2 text-sm text-gray-600">Active</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-blue text-white py-3 rounded-xl font-medium hover:bg-blue-600 transition">
+                            Add Slide
+                        </button>
+                    </form>
+                `;
+                modal.classList.remove('hidden');
+                setupHeroSlideFormSubmit();
+            }
+        };
+
+        function setupHeroSlideFormSubmit() {
+            document.getElementById('heroSlideForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const id = formData.get('id');
+                const data = {
+                    image: formData.get('image'),
+                    title: formData.get('title'),
+                    subtitle: formData.get('subtitle'),
+                    description: formData.get('description'),
+                    ctaText: formData.get('ctaText'),
+                    ctaLink: formData.get('ctaLink'),
+                    ctaSecondaryText: formData.get('ctaSecondaryText'),
+                    ctaSecondaryLink: formData.get('ctaSecondaryLink'),
+                    order: parseInt(formData.get('order')) || 0,
+                    active: document.getElementById('slideActive').checked
+                };
+
+                try {
+                    if (id) {
+                        await api.heroSlides.update(id, data);
+                    } else {
+                        await api.heroSlides.create(data);
+                    }
+                    closeModal();
+                    loadHeroSlides();
+                } catch (error) {
+                    alert(error.message);
+                }
+            });
+        }
+
+        window.openEditHeroSlideModal = function(id) {
+            openHeroSlideModal(id);
+        };
+
+        window.confirmDeleteHeroSlide = function(id, name) {
+            document.getElementById('confirmMessage').textContent = `Are you sure you want to delete "${name}"? This action cannot be undone.`;
+            document.getElementById('confirmModal').classList.remove('hidden');
+            document.getElementById('confirmDeleteBtn').onclick = async () => {
+                try {
+                    await api.heroSlides.delete(id);
+                    closeConfirmModal();
+                    loadHeroSlides();
+                } catch (error) {
+                    alert(error.message);
+                }
+            };
+        };
+
         window.confirmDelete = function(type, id, name) {
             document.getElementById('confirmMessage').textContent = `Are you sure you want to delete "${name}"? This action cannot be undone.`;
             document.getElementById('confirmModal').classList.remove('hidden');
             deleteCallback = async () => {
                 try {
                     const endpoints = {
-                        product: `/api/products/${id}`,
-                        user: `/api/users/${id}`,
-                        order: `/api/orders/${id}`,
-                        'custom-build': `/api/custom-build/${id}`
+                        product: `/products/${id}`,
+                        user: `/users/${id}`,
+                        order: `/orders/${id}`,
+                        'custom-build': `/custom-build/${id}`
                     };
-                    await fetch(`http://localhost:5000${endpoints[type]}`, {
-                        method: 'DELETE',
-                        headers: { 'Authorization': `Bearer ${api.token}` }
-                    });
+                    await api.request(endpoints[type], { method: 'DELETE' });
                     closeConfirmModal();
                     await loadStats();
                     if (type === 'product') loadProducts();

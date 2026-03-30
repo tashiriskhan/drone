@@ -56,7 +56,6 @@ const couponSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-couponSchema.index({ code: 1 });
 couponSchema.index({ expiresAt: 1 });
 couponSchema.index({ 'usedBy.user': 1 });
 

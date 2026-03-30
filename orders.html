@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders | InGraviton</title>
+    <meta name="description" content="Track and manage your drone component orders.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/orders.html">
+    <meta property="og:title" content="My Orders | InGraviton">
+    <meta property="og:description" content="Track and manage your drone component orders.">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="My Orders | InGraviton">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -204,10 +218,7 @@
                     return;
                 }
 
-                const res = await fetch(`http://localhost:5000/api/orders/my-orders?page=${page}&limit=10`, {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(`/orders/my-orders?page=${page}&limit=10`);
                 const orders = data.data || [];
                 const paginationData = data.pagination || { currentPage: 1, totalPages: 1 };
 
@@ -289,10 +300,7 @@
             modal.classList.remove('hidden');
 
             try {
-                const res = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
-                    headers: { 'Authorization': `Bearer ${api.token}` }
-                });
-                const data = await res.json();
+                const data = await api.request(`/orders/${orderId}`);
                 const order = data.data;
 
                 title.textContent = `Order #${order._id.slice(-8).toUpperCase()}`;

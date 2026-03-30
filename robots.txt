@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and backend routes
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /backend/
+Disallow: /src/
+
+# Disallow auth-related pages from indexing
+Disallow: /login.html
+Disallow: /register.html
+Disallow: /forgot-password.html
+Disallow: /reset-password.html
+
+# Disallow user-specific pages
+Disallow: /orders.html
+Disallow: /wishlist.html
+Disallow: /cart.html
+
+# Allow search engines to crawl product and category pages
+Allow: /products.html
+Allow: /frames.html
+Allow: /components.html
+Allow: /tools.html
+
+# Sitemap location
+Sitemap: https://your-domain.com/sitemap.xml

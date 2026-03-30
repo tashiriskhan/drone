@@ -34,5 +34,6 @@ if (slider && scrollLeftBtn && scrollRightBtn) {
 if (mobileMenuBtn && mobileMenu) {
     mobileMenuBtn.addEventListener('click', () => {
         mobileMenu.classList.toggle('open');
+        mobileMenuBtn.classList.toggle('open');
     });
 }
