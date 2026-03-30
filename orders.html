@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | InGraviton</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body class="text-gray-800 antialiased overflow-x-hidden">
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 text-gray-800 bg-white/95 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center gap-2 cursor-pointer">
+                    <div class="w-8 h-8 bg-gradient-to-tr from-brand-dark to-brand-blue rounded-lg flex items-center justify-center text-white">
+                        <i class="fa-solid fa-paper-plane text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-brand-dark">InGraviton</span>
+                </a>
+
+                <div class="hidden lg:flex space-x-8 text-sm font-medium text-gray-600">
+                    <a href="products.html" class="nav-link hover:text-brand-dark transition">Products</a>
+                    <a href="frames.html" class="nav-link hover:text-brand-dark transition">Frame Assembly</a>
+                    <a href="components.html" class="nav-link hover:text-brand-dark transition">Components</a>
+                    <a href="tools.html" class="nav-link hover:text-brand-dark transition">Tools</a>
+                    <a href="about.html" class="nav-link hover:text-brand-dark transition">About</a>
+                    <a href="support.html" class="nav-link hover:text-brand-dark transition">Support</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="wishlist.html" class="text-gray-500 hover:text-brand-dark transition relative">
+                        <i class="fa-solid fa-heart"></i>
+                        <span id="wishlistBadge" class="wishlist-badge absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
+                    </a>
+                    <a href="cart.html" class="text-gray-500 hover:text-brand-dark transition relative">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="cartBadge" class="cart-badge absolute -top-1 -right-1 w-4 h-4 bg-brand-blue text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
+                    </a>
+
+                    <div class="hidden md:flex items-center gap-3 ml-4 border-l pl-4 border-gray-200">
+                        <div class="relative group">
+                            <button id="accountBtn" class="text-sm font-medium text-gray-600 hover:text-brand-dark flex items-center gap-2">
+                                <i class="fa-solid fa-user"></i>
+                                <span id="accountName">Account</span>
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                            <div id="accountDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 hidden group-hover:block">
+                                <a href="orders.html" class="block px-4 py-2 text-sm hover:bg-gray-50 text-brand-dark font-medium">
+                                    <i class="fa-solid fa-box mr-2"></i> My Orders
+                                </a>
+                                <a href="custom-build.html" class="block px-4 py-2 text-sm hover:bg-gray-50 text-gray-600">
+                                    <i class="fa-solid fa-helicopter mr-2"></i> Custom Builds
+                                </a>
+                                <div class="border-t border-gray-100 my-2"></div>
+                                <button id="logoutBtn" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 text-red-500">
+                                    <i class="fa-solid fa-sign-out-alt mr-2"></i> Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="mobileMenuBtn" class="lg:hidden text-gray-800 text-xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobileMenu" class="mobile-menu lg:hidden">
+                <div class="pt-4 pb-2 space-y-3">
+                    <a href="products.html" class="block py-2 text-gray-600 hover:text-brand-dark">Products</a>
+                    <a href="frames.html" class="block py-2 text-gray-600 hover:text-brand-dark">Frame Assembly</a>
+                    <a href="components.html" class="block py-2 text-gray-600 hover:text-brand-dark">Components</a>
+                    <a href="tools.html" class="block py-2 text-gray-600 hover:text-brand-dark">Tools</a>
+                    <a href="orders.html" class="block py-2 text-gray-600 hover:text-brand-dark">My Orders</a>
+                    <div class="pt-2 border-t border-gray-200">
+                        <button id="mobileLogoutBtn" class="block py-2 text-red-500">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-brand-dark mb-4">My Orders</h1>
+            <p class="text-gray-500 text-lg">Track and manage your orders</p>
+        </div>
+    </section>
+
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div id="accessDenied" class="hidden text-center py-32">
+                <i class="fa-solid fa-lock text-6xl text-gray-300 mb-4"></i>
+                <h1 class="text-3xl font-bold text-gray-600 mb-2">Please Login</h1>
+                <p class="text-gray-500 mb-6">You need to be logged in to view your orders</p>
+                <a href="login.html" class="inline-block bg-brand-blue text-white px-6 py-3 rounded-full hover:bg-blue-600 transition">
+                    Go to Login
+                </a>
+            </div>
+
+            <div id="ordersContent" class="hidden">
+                <div id="ordersList" class="space-y-6"></div>
+                <div id="pagination" class="flex justify-center gap-2 mt-8"></div>
+            </div>
+
+            <div id="loadingState" class="text-center py-16">
+                <i class="fa-solid fa-spinner fa-spin text-4xl text-gray-400"></i>
+                <p class="text-gray-500 mt-4">Loading your orders...</p>
+            </div>
+
+            <div id="emptyState" class="hidden text-center py-16">
+                <i class="fa-solid fa-box-open text-6xl text-gray-300 mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-600 mb-2">No Orders Yet</h2>
+                <p class="text-gray-500 mb-6">You haven't placed any orders yet.</p>
+                <a href="products.html" class="inline-block bg-brand-blue text-white px-6 py-3 rounded-full hover:bg-blue-600 transition">
+                    Start Shopping
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="orderModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white rounded-t-2xl">
+                <h2 id="modalTitle" class="text-xl font-bold text-brand-dark">Order Details</h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-solid fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="modalContent" class="p-6"></div>
+        </div>
+    </div>
+
+    <footer class="bg-brand-dark text-gray-400 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center gap-2 mb-4 text-white">
+                <div class="w-6 h-6 bg-gradient-to-tr from-gray-700 to-brand-blue rounded flex items-center justify-center">
+                    <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                </div>
+                <span class="text-lg font-bold">InGraviton</span>
+            </div>
+            <p class="text-sm">&copy; <span id="currentYear"></span> InGraviton Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import api from './src/js/api.js';
+        import { cart } from './src/js/cart.js';
+        import { wishlist } from './src/js/wishlist.js';
+
+        let currentPage = 1;
+
+        function renderPagination(paginationData, currentPage) {
+            const pagination = document.getElementById('pagination');
+            const { totalPages } = paginationData;
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            html += `<button ${currentPage === 1 ? 'disabled' : ''} onclick="loadOrders(${currentPage - 1})" class="px-4 py-2 rounded-lg text-sm font-medium ${currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 transition'}">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    html += `<button onclick="loadOrders(${i})" class="px-4 py-2 rounded-lg text-sm font-medium ${i === currentPage ? 'bg-brand-blue text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 transition'}">${i}</button>`;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    html += `<span class="px-2 text-gray-400">...</span>`;
+                }
+            }
+
+            html += `<button ${currentPage === totalPages ? 'disabled' : ''} onclick="loadOrders(${currentPage + 1})" class="px-4 py-2 rounded-lg text-sm font-medium ${currentPage === totalPages ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 transition'}">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>`;
+
+            pagination.innerHTML = html;
+        }
+
+        window.loadOrders = async function(page = 1) {
+            currentPage = page;
+
+            // Show loading state first, always
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('ordersContent').classList.add('hidden');
+            document.getElementById('accessDenied').classList.add('hidden');
+            document.getElementById('pagination').innerHTML = '';
+
+            try {
+                const isAuth = await api.validateToken();
+                if (!isAuth) {
+                    document.getElementById('loadingState').classList.add('hidden');
+                    document.getElementById('accessDenied').classList.remove('hidden');
+                    return;
+                }
+
+                const res = await fetch(`http://localhost:5000/api/orders/my-orders?page=${page}&limit=10`, {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                const orders = data.data || [];
+                const paginationData = data.pagination || { currentPage: 1, totalPages: 1 };
+
+                document.getElementById('loadingState').classList.add('hidden');
+
+                if (orders.length === 0) {
+                    document.getElementById('emptyState').classList.remove('hidden');
+                    return;
+                }
+
+                const container = document.getElementById('ordersList');
+                container.innerHTML = orders.map(order => `
+                    <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                        <div class="p-6 border-b border-gray-100 flex flex-wrap justify-between items-center gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
+                                    <i class="fa-solid fa-box text-brand-blue text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-brand-dark">#${order._id.slice(-8).toUpperCase()}</p>
+                                    <p class="text-sm text-gray-500">${new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="px-4 py-2 rounded-full text-sm font-medium ${
+                                    order.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                                    order.status === 'shipped' ? 'bg-blue-100 text-blue-700' :
+                                    order.status === 'processing' ? 'bg-yellow-100 text-yellow-700' :
+                                    order.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+                                    'bg-gray-100 text-gray-700'
+                                }">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>
+                                <span class="text-xl font-bold text-brand-dark">₹${((order.total || 0) * 83).toLocaleString('en-IN')}</span>
+                                <button onclick="showOrderDetails('${order._id}')" class="text-brand-blue hover:text-blue-700 font-medium text-sm flex items-center gap-1">
+                                    View Details <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-gray-50">
+                            <div class="flex gap-4 overflow-x-auto pb-2">
+                                ${(order.items || []).slice(0, 4).map(item => `
+                                    <div class="flex-shrink-0 w-20 h-20 bg-white rounded-lg overflow-hidden border border-gray-200">
+                                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/80?text=No+Image'">
+                                    </div>
+                                `).join('')}
+                                ${(order.items || []).length > 4 ? `
+                                    <div class="flex-shrink-0 w-20 h-20 bg-white rounded-lg border border-gray-200 flex items-center justify-center">
+                                        <span class="text-gray-500 font-medium">+${order.items.length - 4}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <p class="text-sm text-gray-500 mt-3">${order.items?.length || 0} item${order.items?.length !== 1 ? 's' : ''}</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                renderPagination(paginationData, currentPage);
+
+                document.getElementById('ordersContent').classList.remove('hidden');
+
+            } catch (error) {
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('ordersList').innerHTML = `
+                    <div class="text-center py-16">
+                        <i class="fa-solid fa-exclamation-triangle text-6xl text-red-300 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-600 mb-2">Failed to load orders</h3>
+                        <p class="text-gray-500">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        window.showOrderDetails = async function(orderId) {
+            const modal = document.getElementById('orderModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+
+            title.textContent = 'Loading...';
+            content.innerHTML = `<div class="text-center py-8"><i class="fa-solid fa-spinner fa-spin text-3xl text-gray-400"></i></div>`;
+            modal.classList.remove('hidden');
+
+            try {
+                const res = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                const order = data.data;
+
+                title.textContent = `Order #${order._id.slice(-8).toUpperCase()}`;
+
+                content.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center p-4 bg-brand-dark text-white rounded-xl">
+                            <div>
+                                <p class="text-gray-300 text-sm">Order Status</p>
+                                <span class="px-3 py-1 rounded-full text-sm font-medium ${
+                                    order.status === 'delivered' ? 'bg-green-500 text-white' :
+                                    order.status === 'shipped' ? 'bg-blue-500 text-white' :
+                                    order.status === 'processing' ? 'bg-yellow-500 text-white' :
+                                    order.status === 'cancelled' ? 'bg-red-500 text-white' :
+                                    'bg-gray-500 text-white'
+                                }">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-300 text-sm">Order Date</p>
+                                <p class="font-medium">${new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <h4 class="font-semibold text-brand-dark mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-truck text-gray-400"></i> Shipping Address
+                                </h4>
+                                <div class="space-y-1 text-sm">
+                                    <p class="font-medium">${order.shippingAddress?.fullName || 'N/A'}</p>
+                                    <p class="text-gray-600">${order.shippingAddress?.address || 'N/A'}</p>
+                                    <p class="text-gray-600">${order.shippingAddress?.city || ''}, ${order.shippingAddress?.state || ''} ${order.shippingAddress?.pincode || ''}</p>
+                                    <p class="text-gray-600">Phone: ${order.shippingAddress?.phone || 'N/A'}</p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <h4 class="font-semibold text-brand-dark mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-credit-card text-gray-400"></i> Payment Method
+                                </h4>
+                                <p class="text-sm text-gray-600 capitalize">${order.paymentMethod?.replace('_', ' ') || 'Credit Card'}</p>
+                                <p class="text-sm mt-2 font-medium text-brand-dark">Total Paid:</p>
+                                <p class="text-2xl font-bold text-green-600">₹${((order.total || 0) * 83).toLocaleString('en-IN')}</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-brand-dark mb-3">Order Items</h4>
+                            <div class="space-y-3">
+                                ${(order.items || []).map(item => `
+                                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                                        <div class="flex items-center gap-4">
+                                            <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://via.placeholder.com/64?text=No+Image'">
+                                            <div>
+                                                <p class="font-medium text-brand-dark">${item.name}</p>
+                                                <p class="text-sm text-gray-500">Qty: ${item.quantity} × ₹${(item.price * 83).toLocaleString('en-IN')}</p>
+                                            </div>
+                                        </div>
+                                        <p class="font-bold text-brand-dark">₹${((item.price * item.quantity * 83)).toLocaleString('en-IN')}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-200 pt-4">
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Subtotal</span>
+                                    <span>₹${((order.subtotal || 0) * 83).toLocaleString('en-IN')}</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Shipping</span>
+                                    <span>${order.shippingCost === 0 ? 'Free' : '₹' + ((order.shippingCost || 0) * 83).toLocaleString('en-IN')}</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Tax</span>
+                                    <span>₹${((order.tax || 0) * 83).toLocaleString('en-IN')}</span>
+                                </div>
+                                <div class="flex justify-between text-lg font-bold border-t border-gray-200 pt-2">
+                                    <span>Total</span>
+                                    <span class="text-brand-dark">₹${((order.total || 0) * 83).toLocaleString('en-IN')}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${order.notes ? `
+                            <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2"><i class="fa-solid fa-sticky-note mr-2"></i>Order Notes</h4>
+                                <p class="text-sm text-yellow-700">${order.notes}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+
+            } catch (error) {
+                content.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fa-solid fa-exclamation-triangle text-4xl text-red-300 mb-4"></i>
+                        <p class="text-red-500">Failed to load order details</p>
+                    </div>
+                `;
+            }
+        };
+
+        window.closeModal = function() {
+            document.getElementById('orderModal').classList.add('hidden');
+        };
+
+        document.getElementById('logoutBtn')?.addEventListener('click', () => {
+            if (confirm('Logout?')) api.auth.logout();
+        });
+
+        document.getElementById('mobileLogoutBtn')?.addEventListener('click', () => {
+            if (confirm('Logout?')) api.auth.logout();
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                cart.init();
+            } catch (e) { console.error('cart.init error:', e); }
+            try {
+                wishlist.init();
+            } catch (e) { console.error('wishlist.init error:', e); }
+            try {
+                window.loadOrders();
+            } catch (e) {
+                console.error('loadOrders error:', e);
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('ordersList').innerHTML = `<div class="text-center py-16"><i class="fa-solid fa-exclamation-triangle text-6xl text-red-300 mb-4"></i><h3 class="text-xl font-bold text-gray-600 mb-2">Something went wrong</h3><p class="text-gray-500">${e.message}</p></div>`;
+            }
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#accountBtn') && !e.target.closest('#accountDropdown')) {
+                document.getElementById('accountDropdown')?.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

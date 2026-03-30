@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | InGraviton</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body class="text-gray-800 antialiased overflow-x-hidden bg-gray-50">
+
+    <nav class="fixed w-full z-50 py-6 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <a href="index.html" class="flex items-center gap-2 cursor-pointer">
+                <div class="w-8 h-8 bg-gradient-to-tr from-brand-dark to-brand-blue rounded-lg flex items-center justify-center text-white">
+                    <i class="fa-solid fa-paper-plane text-sm"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-brand-dark">InGraviton</span>
+            </a>
+        </div>
+    </nav>
+
+    <section class="min-h-screen pt-32 pb-16 flex items-center">
+        <div class="max-w-md mx-auto px-6 lg:px-8 w-full">
+            <div class="bg-white rounded-2xl p-8 shadow-soft">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-brand-dark mb-2">Welcome Back</h1>
+                    <p class="text-gray-500">Sign in to your account</p>
+                </div>
+                
+                <form id="loginForm" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" name="email" required 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none"
+                            placeholder="you@example.com">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <input type="password" name="password" id="password" required 
+                                class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none"
+                                placeholder="Enter your password">
+                            <button type="button" id="togglePassword" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="errorMessage" class="hidden text-red-500 text-sm"></div>
+                    
+                    <button type="submit" id="submitBtn" class="w-full bg-brand-blue text-white py-4 rounded-full font-medium hover:bg-blue-600 transition-all duration-300">
+                        Sign In
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-gray-500">
+                        Don't have an account? 
+                        <a href="register.html" class="text-brand-blue hover:underline font-medium">Create one</a>
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-dark text-gray-400 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-6 text-white">
+                        <div class="w-6 h-6 bg-gradient-to-tr from-gray-700 to-brand-blue rounded flex items-center justify-center">
+                            <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                        </div>
+                        <span class="text-lg font-bold">InGraviton</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6">
+                        Premium drone components and assembly tools for the next generation of aerial technology.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://twitter.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Products</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="products.html" class="hover:text-brand-blue transition">All Products</a></li>
+                        <li><a href="frames.html" class="hover:text-brand-blue transition">Frame Assembly</a></li>
+                        <li><a href="components.html" class="hover:text-brand-blue transition">Components</a></li>
+                        <li><a href="tools.html" class="hover:text-brand-blue transition">Tools</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Company</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="about.html" class="hover:text-brand-blue transition">About Us</a></li>
+                        <li><a href="support.html" class="hover:text-brand-blue transition">Contact</a></li>
+                        <li><a href="support.html" class="hover:text-brand-blue transition">Support Center</a></li>
+                        <li><a href="custom-build.html" class="hover:text-brand-blue transition">Custom Builds</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Stay Updated</h4>
+                    <p class="text-sm mb-4">Subscribe for latest drops and tech news.</p>
+                    <form id="newsletterForm" class="flex gap-2">
+                        <input type="email" id="newsletterEmail" placeholder="Email address" required class="bg-gray-800 border-none rounded-lg px-4 py-2 text-sm text-white w-full focus:ring-1 focus:ring-brand-blue outline-none">
+                        <button type="submit" class="bg-brand-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    <p id="newsletterMessage" class="text-sm mt-2 hidden"></p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                <p>&copy; <span id="currentYear"></span> InGraviton Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="about.html" class="hover:text-white">Privacy Policy</a>
+                    <a href="about.html" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import api from './src/js/api.js';
+        import './src/js/cart.js';
+        
+        document.getElementById('togglePassword').addEventListener('click', () => {
+            const password = document.getElementById('password');
+            const icon = document.getElementById('togglePassword').querySelector('i');
+            
+            if (password.type === 'password') {
+                password.type = 'text';
+                icon.className = 'fa-solid fa-eye-slash';
+            } else {
+                password.type = 'password';
+                icon.className = 'fa-solid fa-eye';
+            }
+        });
+        
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const formData = new FormData(e.target);
+
+            const email = formData.get('email').trim();
+            const password = formData.get('password');
+
+            // Validation
+            errorMessage.classList.add('hidden');
+
+            if (!email) {
+                errorMessage.textContent = 'Please enter your email address';
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                errorMessage.textContent = 'Please enter a valid email address';
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            if (!password) {
+                errorMessage.textContent = 'Please enter your password';
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Signing in...';
+
+            try {
+                await api.auth.login(email, password);
+                window.location.href = 'index.html';
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sign In';
+            }
+        });
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        document.getElementById('newsletterForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('newsletterEmail');
+            const message = document.getElementById('newsletterMessage');
+            const button = e.target.querySelector('button');
+            button.disabled = true;
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            try {
+                await api.newsletter.subscribe(emailInput.value);
+                message.textContent = 'Successfully subscribed!';
+                message.className = 'text-sm mt-2 text-green-400';
+                message.classList.remove('hidden');
+                emailInput.value = '';
+            } catch (error) {
+                message.textContent = error.message;
+                message.className = 'text-sm mt-2 text-red-400';
+                message.classList.remove('hidden');
+            }
+            button.disabled = false;
+            button.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
+        });
+    </script>
+</body>
+</html>

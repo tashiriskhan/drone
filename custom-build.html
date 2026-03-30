@@ -39,9 +39,27 @@
                         <span class="cart-badge absolute -top-1 -right-1 w-4 h-4 bg-brand-blue text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
                     </a>
                     
+                    <div class="hidden md:flex items-center gap-3 ml-4 border-l pl-4 border-gray-200">
+                        <a href="login.html" id="authLink" class="text-sm font-medium text-gray-600 hover:text-brand-dark">Login</a>
+                    </div>
+                    
                     <button id="mobileMenuBtn" class="lg:hidden text-gray-800 text-xl">
                         <i class="fa-solid fa-bars"></i>
                     </button>
+                </div>
+            </div>
+
+            <div id="mobileMenu" class="mobile-menu lg:hidden">
+                <div class="pt-4 pb-2 space-y-3">
+                    <a href="products.html" class="block py-2 text-gray-600 hover:text-brand-dark">Products</a>
+                    <a href="frames.html" class="block py-2 text-gray-600 hover:text-brand-dark">Frame Assembly</a>
+                    <a href="components.html" class="block py-2 text-gray-600 hover:text-brand-dark">Components</a>
+                    <a href="tools.html" class="block py-2 text-gray-600 hover:text-brand-dark">Tools</a>
+                    <a href="about.html" class="block py-2 text-gray-600 hover:text-brand-dark">About</a>
+                    <a href="support.html" class="block py-2 text-gray-600 hover:text-brand-dark">Support</a>
+                    <div class="pt-2 border-t border-gray-200">
+                        <a href="login.html" class="block py-2 text-gray-600">Login</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,50 +76,85 @@
 
     <section class="py-20 bg-gray-50">
         <div class="max-w-2xl mx-auto px-6 lg:px-8">
-            <form class="bg-white rounded-2xl p-8 shadow-soft space-y-6">
+            <form id="customBuildForm" class="bg-white rounded-2xl p-8 shadow-soft space-y-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Use Case</label>
-                    <select class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
-                        <option>Photography & Videography</option>
-                        <option>Racing</option>
-                        <option>Agricultural Survey</option>
-                        <option>Industrial Inspection</option>
-                        <option>Search & Rescue</option>
-                        <option>Other</option>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Use Case *</label>
+                    <select name="useCase" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                        <option value="">Select a use case</option>
+                        <option value="Photography & Videography">Photography & Videography</option>
+                        <option value="Racing">Racing</option>
+                        <option value="Agricultural Survey">Agricultural Survey</option>
+                        <option value="Industrial Inspection">Industrial Inspection</option>
+                        <option value="Search & Rescue">Search & Rescue</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Budget Range</label>
-                        <select class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
-                            <option>$500 - $1,000</option>
-                            <option>$1,000 - $2,500</option>
-                            <option>$2,500 - $5,000</option>
-                            <option>$5,000+</option>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Budget Range *</label>
+                        <select name="budgetRange" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                            <option value="">Select budget</option>
+                            <option value="$500 - $1,000">$500 - $1,000</option>
+                            <option value="$1,000 - $2,500">$1,000 - $2,500</option>
+                            <option value="$2,500 - $5,000">$2,500 - $5,000</option>
+                            <option value="$5,000+">$5,000+</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Flight Time Needed</label>
-                        <select class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
-                            <option>15-20 minutes</option>
-                            <option>20-30 minutes</option>
-                            <option>30-45 minutes</option>
-                            <option>45+ minutes</option>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Flight Time Needed *</label>
+                        <select name="flightTime" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                            <option value="">Select flight time</option>
+                            <option value="15-20 minutes">15-20 minutes</option>
+                            <option value="20-30 minutes">20-30 minutes</option>
+                            <option value="30-45 minutes">30-45 minutes</option>
+                            <option value="45+ minutes">45+ minutes</option>
                         </select>
                     </div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Additional Requirements</label>
-                    <textarea rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none" placeholder="Tell us about your specific needs..."></textarea>
+                    <textarea name="additionalRequirements" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none" placeholder="Tell us about your specific needs, payload requirements, camera preferences, etc."></textarea>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                    <input type="email" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none" placeholder="your@email.com">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                    <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none" placeholder="your@email.com">
                 </div>
-                <button type="submit" class="w-full bg-brand-blue text-white py-4 rounded-full font-medium hover:bg-blue-600 transition-colors">
+                
+                <div id="formMessage" class="hidden p-4 rounded-lg"></div>
+                
+                <button type="submit" id="submitBtn" class="w-full bg-brand-blue text-white py-4 rounded-full font-medium hover:bg-blue-600 transition-colors">
                     Submit Request
                 </button>
             </form>
+        </div>
+    </section>
+
+    <section class="py-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-brand-dark text-center mb-12">What Happens Next?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-file-signature text-2xl text-brand-blue"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-brand-dark mb-2">1. Review</h3>
+                    <p class="text-gray-500 text-sm">Our engineers review your requirements and check feasibility</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-calculator text-2xl text-brand-blue"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-brand-dark mb-2">2. Quote</h3>
+                    <p class="text-gray-500 text-sm">We provide a detailed quote with specifications and timeline</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-rocket text-2xl text-brand-blue"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-brand-dark mb-2">3. Build</h3>
+                    <p class="text-gray-500 text-sm">Once approved, we build and deliver your custom drone</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -118,6 +171,72 @@
     </footer>
 
     <script type="module" src="/src/js/main.js"></script>
-    <script type="module" src="/src/js/cart.js"></script>
+    <script type="module">
+        import api from './src/js/api.js';
+        import { cart } from './src/js/cart.js';
+        
+        document.getElementById('customBuildForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const message = document.getElementById('formMessage');
+            const formData = new FormData(e.target);
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
+            message.classList.add('hidden');
+            
+            const data = {
+                useCase: formData.get('useCase'),
+                budgetRange: formData.get('budgetRange'),
+                flightTime: formData.get('flightTime'),
+                additionalRequirements: formData.get('additionalRequirements'),
+                email: formData.get('email')
+            };
+            
+            if (api.isAuthenticated()) {
+                data.user = api.getUser().id;
+            }
+            
+            try {
+                await api.customBuild.submit(data);
+                
+                message.textContent = 'Request submitted successfully! We will contact you soon.';
+                message.className = 'p-4 rounded-lg bg-green-100 text-green-700';
+                message.classList.remove('hidden');
+                
+                e.target.reset();
+            } catch (error) {
+                message.textContent = error.message;
+                message.className = 'p-4 rounded-lg bg-red-100 text-red-700';
+                message.classList.remove('hidden');
+            }
+            
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Request';
+        });
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            cart.init();
+            
+            const isAuth = await api.validateToken();
+            document.getElementById('authLink').textContent = isAuth ? 'Logout' : 'Login';
+            document.getElementById('authLink').href = isAuth ? '#' : 'login.html';
+            
+            if (isAuth) {
+                const user = api.getUser();
+                if (user) {
+                    document.querySelector('input[name="email"]').value = user.email || '';
+                }
+                
+                document.getElementById('authLink').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (confirm('Logout?')) {
+                        api.auth.logout();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

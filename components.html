@@ -34,14 +34,17 @@
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <button class="text-gray-500 hover:text-brand-dark transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <a href="wishlist.html" class="text-gray-500 hover:text-brand-dark transition relative">
+                        <i class="fa-solid fa-heart"></i>
+                        <span class="wishlist-badge absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
+                    </a>
                     <a href="cart.html" class="text-gray-500 hover:text-brand-dark transition relative">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span class="cart-badge absolute -top-1 -right-1 w-4 h-4 bg-brand-blue text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
                     </a>
                     
                     <div class="hidden md:flex items-center gap-3 ml-4 border-l pl-4 border-gray-200">
-                        <a href="#" class="text-sm font-medium text-gray-600 hover:text-brand-dark">Login</a>
+                        <a href="login.html" id="authLink" class="text-sm font-medium text-gray-600 hover:text-brand-dark">Login</a>
                         <a href="custom-build.html" class="bg-brand-dark text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-gray-800 hover:shadow-glow transition-all duration-300">
                             Get Started
                         </a>
@@ -75,139 +78,276 @@
 
     <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <div class="bg-white rounded-2xl p-6 shadow-soft hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="relative overflow-hidden rounded-xl h-64 mb-6 group">
-                        <img src="https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Flight Controller V4">
-                        <button class="add-to-cart absolute bottom-4 right-4 bg-brand-blue text-white p-3 rounded-full shadow-md opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
-                            data-id="flight-controller-v4" data-name="Flight Controller V4" data-price="249" data-image="https://images.unsplash.com/photo-1527977966376-1c8408f9f108">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-xl text-brand-dark mb-2">Flight Controller V4</h3>
-                    <p class="text-gray-500 text-sm mb-4">Advanced autopilot with GPS and obstacle avoidance integration.</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-brand-dark">$249</span>
-                        <div class="flex gap-2">
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">FC</span>
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">GPS</span>
-                        </div>
-                    </div>
+            <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="col-span-full text-center py-16">
+                    <i class="fa-solid fa-spinner fa-spin text-4xl text-gray-400"></i>
+                    <p class="text-gray-500 mt-4">Loading components...</p>
                 </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-soft hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="relative overflow-hidden rounded-xl h-64 mb-6 group">
-                        <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Brushless Motor X2207">
-                        <button class="add-to-cart absolute bottom-4 right-4 bg-brand-blue text-white p-3 rounded-full shadow-md opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
-                            data-id="motor-x2207" data-name="Brushless Motor X2207" data-price="89" data-image="https://images.unsplash.com/photo-1473968512647-3e447244af8f">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-xl text-brand-dark mb-2">Brushless Motor X2207</h3>
-                    <p class="text-gray-500 text-sm mb-4">High-efficiency motor for 5" propellers. 2400KV output.</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-brand-dark">$89</span>
-                        <div class="flex gap-2">
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">Motor</span>
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">2400KV</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-soft hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="relative overflow-hidden rounded-xl h-64 mb-6 group">
-                        <img src="https://images.unsplash.com/photo-1559067515-bf7d799b6d4d?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Stabilizer Pro">
-                        <button class="add-to-cart absolute bottom-4 right-4 bg-brand-blue text-white p-3 rounded-full shadow-md opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
-                            data-id="stabilizer-pro" data-name="Stabilizer Pro" data-price="899" data-image="https://images.unsplash.com/photo-1559067515-bf7d799b6d4d">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-xl text-brand-dark mb-2">Stabilizer Pro</h3>
-                    <p class="text-gray-500 text-sm mb-4">3-axis gimbal for smooth 4K video capture. 3kg payload capacity.</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-brand-dark">$899</span>
-                        <div class="flex gap-2">
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">Gimbal</span>
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">3-Axis</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-soft hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="relative overflow-hidden rounded-xl h-64 mb-6 group">
-                        <img src="https://images.unsplash.com/photo-1507581134177-2b85a9886043?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Night Vision Cam">
-                        <button class="add-to-cart absolute bottom-4 right-4 bg-brand-blue text-white p-3 rounded-full shadow-md opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
-                            data-id="night-vision-cam" data-name="Night Vision Cam" data-price="349" data-image="https://images.unsplash.com/photo-1507581134177-2b85a9886043">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-xl text-brand-dark mb-2">Night Vision Cam</h3>
-                    <p class="text-gray-500 text-sm mb-4">4K low-light sensor with thermal imaging overlay.</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-brand-dark">$349</span>
-                        <div class="flex gap-2">
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">4K</span>
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">Thermal</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-soft hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="relative overflow-hidden rounded-xl h-64 mb-6 group">
-                        <img src="https://images.unsplash.com/photo-1579829366248-204fe8413f31?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="AeroGrip 5000">
-                        <button class="add-to-cart absolute bottom-4 right-4 bg-brand-blue text-white p-3 rounded-full shadow-md opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
-                            data-id="aerogrip-5000" data-name="AeroGrip 5000" data-price="129" data-image="https://images.unsplash.com/photo-1579829366248-204fe8413f31">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-xl text-brand-dark mb-2">AeroGrip 5000</h3>
-                    <p class="text-gray-500 text-sm mb-4">Heavy lift propellers. Carbon fiber reinforced for industrial use.</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-brand-dark">$129</span>
-                        <div class="flex gap-2">
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">Props</span>
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">5" Set</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-soft hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="relative overflow-hidden rounded-xl h-64 mb-6 group">
-                        <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a782?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="LiPo Battery 5000">
-                        <button class="add-to-cart absolute bottom-4 right-4 bg-brand-blue text-white p-3 rounded-full shadow-md opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
-                            data-id="lipo-5000" data-name="LiPo Battery 5000" data-price="179" data-image="https://images.unsplash.com/photo-1581092921461-eab62e97a782">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-xl text-brand-dark mb-2">LiPo Battery 5000</h3>
-                    <p class="text-gray-500 text-sm mb-4">6S 5000mAh battery with smart charging and discharge protection.</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-brand-dark">$179</span>
-                        <div class="flex gap-2">
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">6S</span>
-                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">5000mAh</span>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+            <div id="pagination" class="flex justify-center gap-2 mt-8"></div>
         </div>
     </section>
 
     <footer class="bg-brand-dark text-gray-400 py-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-            <div class="flex items-center justify-center gap-2 mb-4 text-white">
-                <div class="w-6 h-6 bg-gradient-to-tr from-gray-700 to-brand-blue rounded flex items-center justify-center">
-                    <i class="fa-solid fa-paper-plane text-[10px]"></i>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-6 text-white">
+                        <div class="w-6 h-6 bg-gradient-to-tr from-gray-700 to-brand-blue rounded flex items-center justify-center">
+                            <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                        </div>
+                        <span class="text-lg font-bold">InGraviton</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6">
+                        Premium drone components and assembly tools for the next generation of aerial technology.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://twitter.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
                 </div>
-                <span class="text-lg font-bold">InGraviton</span>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Products</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="products.html" class="hover:text-brand-blue transition">All Products</a></li>
+                        <li><a href="frames.html" class="hover:text-brand-blue transition">Frame Assembly</a></li>
+                        <li><a href="components.html" class="hover:text-brand-blue transition">Components</a></li>
+                        <li><a href="tools.html" class="hover:text-brand-blue transition">Tools</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Company</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="about.html" class="hover:text-brand-blue transition">About Us</a></li>
+                        <li><a href="support.html" class="hover:text-brand-blue transition">Contact</a></li>
+                        <li><a href="support.html" class="hover:text-brand-blue transition">Support Center</a></li>
+                        <li><a href="custom-build.html" class="hover:text-brand-blue transition">Custom Builds</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Stay Updated</h4>
+                    <p class="text-sm mb-4">Subscribe for latest drops and tech news.</p>
+                    <form id="newsletterForm" class="flex gap-2">
+                        <input type="email" id="newsletterEmail" placeholder="Email address" required class="bg-gray-800 border-none rounded-lg px-4 py-2 text-sm text-white w-full focus:ring-1 focus:ring-brand-blue outline-none">
+                        <button type="submit" class="bg-brand-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    <p id="newsletterMessage" class="text-sm mt-2 hidden"></p>
+                </div>
             </div>
-            <p class="text-sm">&copy; 2024 InGraviton Inc. All rights reserved.</p>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                <p>&copy; <span id="currentYear"></span> InGraviton Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="about.html" class="hover:text-white">Privacy Policy</a>
+                    <a href="about.html" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script type="module" src="/src/js/main.js"></script>
-    <script type="module" src="/src/js/cart.js"></script>
+    <script type="module">
+        import api from './src/js/api.js';
+        import { cart } from './src/js/cart.js';
+        import { wishlist } from './src/js/wishlist.js';
+
+        let currentPage = 1;
+
+        function renderPagination(paginationData, currentPage) {
+            const pagination = document.getElementById('pagination');
+            const { totalPages } = paginationData;
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            html += `<button ${currentPage === 1 ? 'disabled' : ''} onclick="loadComponents(${currentPage - 1})" class="px-4 py-2 rounded-lg text-sm font-medium ${currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 transition'}">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    html += `<button onclick="loadComponents(${i})" class="px-4 py-2 rounded-lg text-sm font-medium ${i === currentPage ? 'bg-brand-blue text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 transition'}">${i}</button>`;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    html += `<span class="px-2 text-gray-400">...</span>`;
+                }
+            }
+
+            html += `<button ${currentPage === totalPages ? 'disabled' : ''} onclick="loadComponents(${currentPage + 1})" class="px-4 py-2 rounded-lg text-sm font-medium ${currentPage === totalPages ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 transition'}">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>`;
+
+            pagination.innerHTML = html;
+        }
+
+        window.loadComponents = async function(page = 1) {
+            currentPage = page;
+            const grid = document.getElementById('productsGrid');
+            const pagination = document.getElementById('pagination');
+
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-16">
+                    <i class="fa-solid fa-spinner fa-spin text-4xl text-gray-400"></i>
+                    <p class="text-gray-500 mt-4">Loading components...</p>
+                </div>
+            `;
+            pagination.innerHTML = '';
+
+            try {
+                const result = await api.products.getAll({ category: 'components', page, limit: 12 });
+                const products = result.data;
+                const paginationData = result.pagination;
+                
+                if (products.length === 0) {
+                    grid.innerHTML = `
+                        <div class="col-span-full text-center py-16">
+                            <i class="fa-solid fa-box-open text-6xl text-gray-300 mb-4"></i>
+                            <h3 class="text-xl font-bold text-gray-600 mb-2">No components available</h3>
+                            <p class="text-gray-500">Check back soon for new products</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                grid.innerHTML = products.map(product => `
+                    <div class="bg-white rounded-2xl p-6 shadow-soft hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group">
+                        <button class="wishlist-btn absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 shadow flex items-center justify-center opacity-0 group-hover:opacity-100 transition ${wishlist.has(product._id) ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}"
+                            data-id="${product._id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">
+                            <i class="${wishlist.has(product._id) ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                        </button>
+                        <a href="product.html?id=${product._id}" class="block">
+                            <div class="relative overflow-hidden rounded-xl h-48 mb-4">
+                                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                                ${product.stock === 0 ? `
+                                    <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                        <span class="text-white font-medium">Out of Stock</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <h3 class="font-bold text-brand-dark mb-1">${product.name}</h3>
+                            <p class="text-gray-500 text-sm truncate mb-3">${product.description}</p>
+                        </a>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-brand-dark">₹${(product.price * 83).toLocaleString('en-IN')}</span>
+                            ${product.stock > 0 ? `
+                                <button class="add-to-cart bg-brand-blue text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600 transition" data-id="${product._id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">
+                                    <i class="fa-solid fa-cart-plus mr-1"></i> Add
+                                </button>
+                            ` : `<span class="text-red-500 text-sm">Out of Stock</span>`}
+                        </div>
+                    </div>
+                `).join('');
+
+                document.querySelectorAll('.add-to-cart').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        const product = {
+                            id: btn.dataset.id,
+                            name: btn.dataset.name,
+                            price: parseFloat(btn.dataset.price),
+                            image: btn.dataset.image
+                        };
+                        await cart.add(product);
+                        window.showToast('Added to cart!');
+                        btn.innerHTML = '<i class="fa-solid fa-check"></i> Added';
+                        btn.classList.add('bg-green-500');
+                        setTimeout(() => {
+                            btn.innerHTML = '<i class="fa-solid fa-cart-plus mr-1"></i> Add';
+                            btn.classList.remove('bg-green-500');
+                        }, 1500);
+                    });
+                });
+
+                document.querySelectorAll('.wishlist-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const product = {
+                            id: btn.dataset.id,
+                            name: btn.dataset.name,
+                            price: parseFloat(btn.dataset.price),
+                            image: btn.dataset.image
+                        };
+                        const isInWishlist = wishlist.has(product.id);
+                        if (isInWishlist) {
+                            wishlist.remove(product.id);
+                            btn.querySelector('i').className = 'fa-regular fa-heart';
+                            btn.classList.remove('text-red-500');
+                            window.showToast('Removed from wishlist');
+                        } else {
+                            wishlist.add(product);
+                            btn.querySelector('i').className = 'fa-solid fa-heart';
+                            btn.classList.add('text-red-500');
+                            window.showToast('Added to wishlist!');
+                        }
+                    });
+                });
+
+                renderPagination(paginationData, currentPage);
+
+            } catch (error) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16">
+                        <i class="fa-solid fa-exclamation-triangle text-6xl text-red-300 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-600 mb-2">Failed to load components</h3>
+                        <p class="text-gray-500">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            window.loadComponents();
+            cart.init();
+            wishlist.init();
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            document.getElementById('newsletterForm')?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const emailInput = document.getElementById('newsletterEmail');
+                const message = document.getElementById('newsletterMessage');
+                const button = e.target.querySelector('button');
+                button.disabled = true;
+                button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+                try {
+                    await api.newsletter.subscribe(emailInput.value);
+                    message.textContent = 'Successfully subscribed!';
+                    message.className = 'text-sm mt-2 text-green-400';
+                    message.classList.remove('hidden');
+                    emailInput.value = '';
+                } catch (error) {
+                    message.textContent = error.message;
+                    message.className = 'text-sm mt-2 text-red-400';
+                    message.classList.remove('hidden');
+                }
+                button.disabled = false;
+                button.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
+            });
+
+            const isAuth = await api.validateToken();
+            document.querySelectorAll('#authLink').forEach(link => {
+                link.textContent = isAuth ? 'Logout' : 'Login';
+                link.href = isAuth ? '#' : 'login.html';
+            });
+            
+            if (isAuth) {
+                document.querySelectorAll('#authLink').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (confirm('Logout?')) api.auth.logout();
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

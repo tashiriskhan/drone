@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product | InGraviton</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body class="text-gray-800 antialiased overflow-x-hidden">
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 text-gray-800 bg-white/95 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center gap-2 cursor-pointer">
+                    <div class="w-8 h-8 bg-gradient-to-tr from-brand-dark to-brand-blue rounded-lg flex items-center justify-center text-white">
+                        <i class="fa-solid fa-paper-plane text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-brand-dark">InGraviton</span>
+                </a>
+
+                <div class="hidden lg:flex space-x-8 text-sm font-medium text-gray-600">
+                    <a href="products.html" class="nav-link hover:text-brand-dark transition">Products</a>
+                    <a href="frames.html" class="nav-link hover:text-brand-dark transition">Frame Assembly</a>
+                    <a href="components.html" class="nav-link hover:text-brand-dark transition">Components</a>
+                    <a href="tools.html" class="nav-link hover:text-brand-dark transition">Tools</a>
+                    <a href="about.html" class="nav-link hover:text-brand-dark transition">About</a>
+                    <a href="support.html" class="nav-link hover:text-brand-dark transition">Support</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="wishlist.html" class="text-gray-500 hover:text-brand-dark transition relative">
+                        <i class="fa-solid fa-heart"></i>
+                        <span id="wishlistBadge" class="wishlist-badge absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
+                    </a>
+                    <a href="cart.html" class="text-gray-500 hover:text-brand-dark transition relative">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="cart-badge absolute -top-1 -right-1 w-4 h-4 bg-brand-blue text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
+                    </a>
+
+                    <div class="hidden md:flex items-center gap-3 ml-4 border-l pl-4 border-gray-200">
+                        <a href="login.html" id="authLink" class="text-sm font-medium text-gray-600 hover:text-brand-dark">Login</a>
+                    </div>
+
+                    <button id="mobileMenuBtn" class="lg:hidden text-gray-800 text-xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobileMenu" class="mobile-menu lg:hidden">
+                <div class="pt-4 pb-2 space-y-3">
+                    <a href="products.html" class="block py-2 text-gray-600 hover:text-brand-dark">Products</a>
+                    <a href="frames.html" class="block py-2 text-gray-600 hover:text-brand-dark">Frame Assembly</a>
+                    <a href="components.html" class="block py-2 text-gray-600 hover:text-brand-dark">Components</a>
+                    <a href="tools.html" class="block py-2 text-gray-600 hover:text-brand-dark">Tools</a>
+                    <a href="wishlist.html" class="block py-2 text-gray-600 hover:text-brand-dark">Wishlist</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-28 pb-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
+                <a href="index.html" class="hover:text-brand-dark">Home</a>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+                <a href="products.html" class="hover:text-brand-dark">Products</a>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+                <span id="breadcrumbProduct" class="text-gray-800">Loading...</span>
+            </nav>
+
+            <div id="productContent" class="hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <div class="relative overflow-hidden rounded-2xl bg-gray-100 mb-4">
+                            <img id="mainImage" src="" alt="" class="w-full aspect-square object-cover" onerror="this.src='https://via.placeholder.com/600x600?text=No+Image'">
+                        </div>
+                        <div id="imageGallery" class="grid grid-cols-4 gap-3"></div>
+                    </div>
+
+                    <div>
+                        <span id="productCategory" class="inline-block px-3 py-1 bg-brand-blue/10 text-brand-blue text-sm font-medium rounded-full mb-4"></span>
+                        <h1 id="productName" class="text-3xl md:text-4xl font-bold text-brand-dark mb-4"></h1>
+
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="flex items-center gap-1">
+                                <span id="productRating" class="text-yellow-500"></span>
+                                <span id="productReviews" class="text-gray-500 text-sm"></span>
+                            </div>
+                            <span id="productStock" class="text-sm font-medium"></span>
+                        </div>
+
+                        <div class="mb-6">
+                            <span id="productPrice" class="text-4xl font-bold text-brand-dark"></span>
+                        </div>
+
+                        <p id="productDescription" class="text-gray-600 mb-8 leading-relaxed"></p>
+
+                        <div id="productSpecifications" class="mb-8"></div>
+
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="flex items-center border border-gray-200 rounded-lg">
+                                <button id="qtyMinus" class="w-12 h-12 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <input type="number" id="quantity" value="1" min="1" class="w-16 h-12 text-center border-x border-gray-200 outline-none">
+                                <button id="qtyPlus" class="w-12 h-12 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button id="addToCartBtn" class="flex-1 bg-brand-blue text-white py-4 rounded-full font-medium hover:bg-blue-600 transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button id="addToWishlistBtn" class="w-14 h-14 border border-gray-200 rounded-full flex items-center justify-center hover:border-red-500 hover:text-red-500 transition">
+                                <i class="fa-solid fa-heart text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loadingState" class="text-center py-32">
+                <i class="fa-solid fa-spinner fa-spin text-4xl text-gray-400"></i>
+                <p class="text-gray-500 mt-4">Loading product...</p>
+            </div>
+
+            <div id="errorState" class="hidden text-center py-32">
+                <i class="fa-solid fa-exclamation-triangle text-6xl text-red-300 mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-600 mb-2">Product Not Found</h2>
+                <p class="text-gray-500 mb-6">This product may have been removed or doesn't exist.</p>
+                <a href="products.html" class="bg-brand-blue text-white px-6 py-3 rounded-full hover:bg-blue-600 transition">
+                    Browse Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-brand-dark mb-8">Related Products</h2>
+            <div id="relatedProducts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-brand-dark">Customer Reviews</h2>
+                <button id="writeReviewBtn" class="bg-brand-blue text-white px-6 py-2 rounded-full text-sm hover:bg-blue-600 transition hidden">
+                    <i class="fa-solid fa-pen mr-2"></i>Write a Review
+                </button>
+            </div>
+
+            <div id="reviewFormContainer" class="hidden mb-8 bg-gray-50 rounded-2xl p-6">
+                <h3 class="font-bold text-brand-dark mb-4">Write Your Review</h3>
+                <form id="reviewForm">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Rating</label>
+                        <div id="ratingStars" class="flex gap-2">
+                            <button type="button" class="star-btn text-2xl text-gray-300 hover:text-yellow-500 transition" data-rating="1">★</button>
+                            <button type="button" class="star-btn text-2xl text-gray-300 hover:text-yellow-500 transition" data-rating="2">★</button>
+                            <button type="button" class="star-btn text-2xl text-gray-300 hover:text-yellow-500 transition" data-rating="3">★</button>
+                            <button type="button" class="star-btn text-2xl text-gray-300 hover:text-yellow-500 transition" data-rating="4">★</button>
+                            <button type="button" class="star-btn text-2xl text-gray-300 hover:text-yellow-500 transition" data-rating="5">★</button>
+                        </div>
+                        <input type="hidden" id="reviewRating" value="0">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Your Review</label>
+                        <textarea id="reviewComment" rows="4" maxlength="500" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none resize-none" placeholder="Share your experience with this product..."></textarea>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="submit" class="bg-brand-blue text-white px-6 py-2 rounded-full text-sm hover:bg-blue-600 transition">
+                            Submit Review
+                        </button>
+                        <button type="button" id="cancelReviewBtn" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-full text-sm hover:bg-gray-300 transition">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="reviewsContainer">
+                <div class="text-center py-8">
+                    <i class="fa-solid fa-spinner fa-spin text-2xl text-gray-400"></i>
+                    <p class="text-gray-500 mt-2">Loading reviews...</p>
+                </div>
+            </div>
+
+            <div id="reviewsPagination" class="mt-8 flex justify-center gap-2 hidden"></div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-dark text-gray-400 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-6 text-white">
+                        <div class="w-6 h-6 bg-gradient-to-tr from-gray-700 to-brand-blue rounded flex items-center justify-center">
+                            <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                        </div>
+                        <span class="text-lg font-bold">InGraviton</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6">
+                        Premium drone components and assembly tools for the next generation of aerial technology.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://twitter.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Products</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="products.html" class="hover:text-brand-blue transition">All Products</a></li>
+                        <li><a href="frames.html" class="hover:text-brand-blue transition">Frame Assembly</a></li>
+                        <li><a href="components.html" class="hover:text-brand-blue transition">Components</a></li>
+                        <li><a href="tools.html" class="hover:text-brand-blue transition">Tools</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Company</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="about.html" class="hover:text-brand-blue transition">About Us</a></li>
+                        <li><a href="support.html" class="hover:text-brand-blue transition">Contact</a></li>
+                        <li><a href="support.html" class="hover:text-brand-blue transition">Support Center</a></li>
+                        <li><a href="custom-build.html" class="hover:text-brand-blue transition">Custom Builds</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Stay Updated</h4>
+                    <p class="text-sm mb-4">Subscribe for latest drops and tech news.</p>
+                    <form id="newsletterForm" class="flex gap-2">
+                        <input type="email" id="newsletterEmail" placeholder="Email address" required class="bg-gray-800 border-none rounded-lg px-4 py-2 text-sm text-white w-full focus:ring-1 focus:ring-brand-blue outline-none">
+                        <button type="submit" class="bg-brand-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    <p id="newsletterMessage" class="text-sm mt-2 hidden"></p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                <p>&copy; <span id="currentYear"></span> InGraviton Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="about.html" class="hover:text-white">Privacy Policy</a>
+                    <a href="about.html" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import api from './src/js/api.js';
+        import { cart } from './src/js/cart.js';
+        import { wishlist } from './src/js/wishlist.js';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        let currentQuantity = 1;
+
+        async function loadProduct() {
+            if (!productId) {
+                showError();
+                return;
+            }
+
+            try {
+                const result = await api.products.getById(productId);
+                const product = result.data;
+
+                document.getElementById('breadcrumbProduct').textContent = product.name;
+                document.title = `${product.name} | InGraviton`;
+
+                document.getElementById('mainImage').src = product.image;
+                document.getElementById('mainImage').alt = product.name;
+
+                const gallery = document.getElementById('imageGallery');
+                const images = [product.image, ...(product.images || [])];
+                gallery.innerHTML = images.map((img, i) => `
+                    <button class="gallery-img rounded-lg overflow-hidden h-20 border-2 ${i === 0 ? 'border-brand-blue' : 'border-transparent'} hover:border-brand-blue transition">
+                        <img src="${img}" alt="${product.name}" class="w-full h-full object-cover">
+                    </button>
+                `).join('');
+
+                gallery.querySelectorAll('.gallery-img').forEach((btn, i) => {
+                    btn.addEventListener('click', () => {
+                        document.getElementById('mainImage').src = images[i];
+                        gallery.querySelectorAll('.gallery-img').forEach(b => b.classList.remove('border-brand-blue'));
+                        btn.classList.add('border-brand-blue');
+                    });
+                });
+
+                document.getElementById('productCategory').textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+                document.getElementById('productName').textContent = product.name;
+
+                const stars = '★'.repeat(Math.floor(product.ratings)) + '☆'.repeat(5 - Math.floor(product.ratings));
+                document.getElementById('productRating').innerHTML = `<span class="text-yellow-500">${stars}</span> <span class="font-medium">${product.ratings}</span>`;
+                document.getElementById('productReviews').textContent = `(${product.numReviews} reviews)`;
+
+                const stock = document.getElementById('productStock');
+                if (product.stock > 10) {
+                    stock.textContent = 'In Stock';
+                    stock.className = 'text-sm font-medium text-green-600';
+                } else if (product.stock > 0) {
+                    stock.textContent = `Only ${product.stock} left`;
+                    stock.className = 'text-sm font-medium text-yellow-600';
+                } else {
+                    stock.textContent = 'Out of Stock';
+                    stock.className = 'text-sm font-medium text-red-600';
+                }
+
+                document.getElementById('productPrice').textContent = `₹${(product.price * 83).toLocaleString('en-IN')}`;
+                document.getElementById('productDescription').textContent = product.description;
+
+                const specs = document.getElementById('productSpecifications');
+                const specsObj = product.specifications || {};
+                const specEntries = Object.entries(specsObj).filter(([key, value]) => value && key !== 'size');
+                if (specEntries.length > 0) {
+                    specs.innerHTML = `
+                        <h3 class="font-semibold text-brand-dark mb-3">Specifications</h3>
+                        <dl class="space-y-2">
+                            ${specEntries.map(([key, value]) => `
+                                <div class="flex justify-between py-2 border-b border-gray-100">
+                                    <dt class="text-gray-500 capitalize">${key.replace(/([A-Z])/g, ' $1').trim()}</dt>
+                                    <dd class="font-medium">${value}</dd>
+                                </div>
+                            `).join('')}
+                        </dl>
+                    `;
+                }
+
+                if (product.stock === 0) {
+                    document.getElementById('addToCartBtn').disabled = true;
+                    document.getElementById('addToCartBtn').classList.add('opacity-50', 'cursor-not-allowed');
+                    document.getElementById('addToCartBtn').innerHTML = '<i class="fa-solid fa-times"></i> Out of Stock';
+                }
+
+                const isInWishlist = wishlist.has(productId);
+                updateWishlistButton(isInWishlist);
+
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('productContent').classList.remove('hidden');
+
+                await loadRelatedProducts(product.category, product._id);
+                await loadReviews(product._id);
+                setupReviewForm(product._id);
+
+            } catch (error) {
+                showError();
+            }
+        }
+
+        async function loadReviews(pid, page = 1) {
+            const container = document.getElementById('reviewsContainer');
+            const pagination = document.getElementById('reviewsPagination');
+
+            try {
+                const result = await api.reviews.getForProduct(pid, page);
+                const reviews = result.data;
+                const { currentPage, totalPages, totalReviews } = result.pagination;
+
+                if (reviews.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-12">
+                            <i class="fa-solid fa-comments text-6xl text-gray-300 mb-4"></i>
+                            <h3 class="text-lg font-bold text-gray-600 mb-2">No reviews yet</h3>
+                            <p class="text-gray-500">Be the first to review this product!</p>
+                        </div>
+                    `;
+                    pagination.classList.add('hidden');
+                    return;
+                }
+
+                container.innerHTML = reviews.map(review => `
+                    <div class="border-b border-gray-100 pb-6 mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center">
+                                    <span class="text-brand-blue font-bold">${review.user?.name?.charAt(0)?.toUpperCase() || 'A'}</span>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-brand-dark">${review.user?.name || 'Anonymous'}</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-yellow-500">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</span>
+                                        <span class="text-gray-400 text-xs">${new Date(review.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            ${review.user?._id === api.getUser()?.id ? `
+                                <button class="delete-review-btn text-gray-400 hover:text-red-500 transition" data-id="${review._id}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+                        <p class="text-gray-600 leading-relaxed">${review.comment}</p>
+                    </div>
+                `).join('');
+
+                container.querySelectorAll('.delete-review-btn').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        if (confirm('Delete this review?')) {
+                            try {
+                                await api.reviews.delete(btn.dataset.id);
+                                window.showToast('Review deleted');
+                                loadReviews(pid, page);
+                            } catch (error) {
+                                window.showToast('Failed to delete review', 'error');
+                            }
+                        }
+                    });
+                });
+
+                if (totalPages > 1) {
+                    pagination.classList.remove('hidden');
+                    let paginationHtml = '';
+                    for (let i = 1; i <= totalPages; i++) {
+                        paginationHtml += `<button class="px-4 py-2 rounded-full text-sm ${i === currentPage ? 'bg-brand-blue text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'} transition" data-page="${i}">${i}</button>`;
+                    }
+                    pagination.innerHTML = paginationHtml;
+                    pagination.querySelectorAll('button').forEach(btn => {
+                        btn.addEventListener('click', () => loadReviews(pid, parseInt(btn.dataset.page)));
+                    });
+                } else {
+                    pagination.classList.add('hidden');
+                }
+
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="text-center py-8">
+                        <p class="text-gray-500">Failed to load reviews</p>
+                    </div>
+                `;
+            }
+        }
+
+        function setupReviewForm(pid) {
+            const writeReviewBtn = document.getElementById('writeReviewBtn');
+            const reviewFormContainer = document.getElementById('reviewFormContainer');
+            const cancelReviewBtn = document.getElementById('cancelReviewBtn');
+            const ratingStars = document.getElementById('ratingStars');
+            const starBtns = ratingStars.querySelectorAll('.star-btn');
+            const reviewRating = document.getElementById('reviewRating');
+
+            writeReviewBtn.addEventListener('click', () => {
+                reviewFormContainer.classList.toggle('hidden');
+            });
+
+            cancelReviewBtn.addEventListener('click', () => {
+                reviewFormContainer.classList.add('hidden');
+                document.getElementById('reviewForm').reset();
+                reviewRating.value = 0;
+                starBtns.forEach(btn => btn.classList.remove('text-yellow-500'));
+                starBtns.forEach(btn => btn.classList.add('text-gray-300'));
+            });
+
+            starBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const rating = parseInt(btn.dataset.rating);
+                    reviewRating.value = rating;
+                    starBtns.forEach((b, i) => {
+                        if (i < rating) {
+                            b.classList.add('text-yellow-500');
+                            b.classList.remove('text-gray-300');
+                        } else {
+                            b.classList.remove('text-yellow-500');
+                            b.classList.add('text-gray-300');
+                        }
+                    });
+                });
+            });
+
+            document.getElementById('reviewForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const rating = parseInt(reviewRating.value);
+                const comment = document.getElementById('reviewComment').value.trim();
+
+                if (rating === 0) {
+                    window.showToast('Please select a rating', 'error');
+                    return;
+                }
+
+                if (!comment) {
+                    window.showToast('Please write a review', 'error');
+                    return;
+                }
+
+                try {
+                    await api.reviews.create(pid, rating, comment);
+                    window.showToast('Review submitted!');
+                    document.getElementById('reviewForm').reset();
+                    reviewRating.value = 0;
+                    starBtns.forEach(btn => {
+                        btn.classList.remove('text-yellow-500');
+                        btn.classList.add('text-gray-300');
+                    });
+                    reviewFormContainer.classList.add('hidden');
+                    loadReviews(pid);
+                    const result = await api.products.getById(pid);
+                    const product = result.data;
+                    const stars = '★'.repeat(Math.floor(product.ratings)) + '☆'.repeat(5 - Math.floor(product.ratings));
+                    document.getElementById('productRating').innerHTML = `<span class="text-yellow-500">${stars}</span> <span class="font-medium">${product.ratings}</span>`;
+                    document.getElementById('productReviews').textContent = `(${product.numReviews} reviews)`;
+                } catch (error) {
+                    window.showToast(error.message || 'Failed to submit review', 'error');
+                }
+            });
+        }
+
+        async function loadRelatedProducts(category, excludeId) {
+            try {
+                const result = await api.products.getAll({ category, limit: 4 });
+                const products = result.data.filter(p => p._id !== excludeId).slice(0, 4);
+
+                const container = document.getElementById('relatedProducts');
+                if (products.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500 col-span-full text-center py-8">No related products found</p>';
+                    return;
+                }
+
+                container.innerHTML = products.map(product => `
+                    <a href="product.html?id=${product._id}" class="bg-white rounded-2xl p-4 shadow-soft hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block">
+                        <div class="relative overflow-hidden rounded-xl h-40 mb-4">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                        </div>
+                        <h3 class="font-bold text-brand-dark truncate">${product.name}</h3>
+                        <p class="text-gray-500 text-sm truncate">${product.description}</p>
+                        <p class="font-bold text-brand-dark mt-2">₹${(product.price * 83).toLocaleString('en-IN')}</p>
+                    </a>
+                `).join('');
+            } catch (error) {
+                document.getElementById('relatedProducts').innerHTML = '';
+            }
+        }
+
+        function updateWishlistButton(isInWishlist) {
+            const btn = document.getElementById('addToWishlistBtn');
+            if (isInWishlist) {
+                btn.classList.add('bg-red-50', 'border-red-500', 'text-red-500');
+                btn.innerHTML = '<i class="fa-solid fa-heart text-xl"></i>';
+            } else {
+                btn.classList.remove('bg-red-50', 'border-red-500', 'text-red-500');
+                btn.innerHTML = '<i class="fa-regular fa-heart text-xl"></i>';
+            }
+        }
+
+        function showError() {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('errorState').classList.remove('hidden');
+        }
+
+        document.getElementById('qtyMinus').addEventListener('click', () => {
+            if (currentQuantity > 1) {
+                currentQuantity--;
+                document.getElementById('quantity').value = currentQuantity;
+            }
+        });
+
+        document.getElementById('qtyPlus').addEventListener('click', () => {
+            currentQuantity++;
+            document.getElementById('quantity').value = currentQuantity;
+        });
+
+        document.getElementById('addToCartBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('addToCartBtn');
+            const product = {
+                id: productId,
+                name: document.getElementById('productName').textContent,
+                price: parseFloat(document.getElementById('productPrice').textContent.replace(/[^0-9.]/g, '')) / 83,
+                image: document.getElementById('mainImage').src
+            };
+
+            if (!api.isAuthenticated()) {
+                const existing = cart.items.find(item => item.id === product.id);
+                if (existing) {
+                    existing.quantity += currentQuantity;
+                } else {
+                    cart.items.push({ ...product, quantity: currentQuantity });
+                }
+                cart.subtotal = cart.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                localStorage.setItem('cart', JSON.stringify(cart.items));
+                cart.updateBadge();
+            } else {
+                await api.cart.add(product.id, currentQuantity);
+                await cart.sync();
+            }
+
+            window.showToast('Added to cart!');
+
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Added!';
+            btn.classList.add('bg-green-500');
+
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.classList.remove('bg-green-500');
+            }, 1500);
+        });
+
+        document.getElementById('addToWishlistBtn').addEventListener('click', () => {
+            const product = {
+                id: productId,
+                name: document.getElementById('productName').textContent,
+                price: parseFloat(document.getElementById('productPrice').textContent.replace(/[^0-9.]/g, '')) / 83,
+                image: document.getElementById('mainImage').src
+            };
+
+            const isInWishlist = wishlist.has(productId);
+
+            if (isInWishlist) {
+                wishlist.remove(productId);
+                window.showToast('Removed from wishlist');
+            } else {
+                wishlist.add(product);
+                window.showToast('Added to wishlist!');
+            }
+
+            updateWishlistButton(!isInWishlist);
+        });
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            cart.init();
+            wishlist.init();
+            await loadProduct();
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            const isAuth = await api.validateToken();
+            document.getElementById('authLink').textContent = isAuth ? 'Logout' : 'Login';
+            document.getElementById('authLink').href = isAuth ? '#' : 'login.html';
+
+            if (isAuth) {
+                document.getElementById('writeReviewBtn')?.classList.remove('hidden');
+                document.getElementById('authLink').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (confirm('Logout?')) {
+                        api.auth.logout();
+                    }
+                });
+            }
+
+            document.getElementById('newsletterForm')?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const emailInput = document.getElementById('newsletterEmail');
+                const message = document.getElementById('newsletterMessage');
+                const button = e.target.querySelector('button');
+                button.disabled = true;
+                button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+                try {
+                    await api.newsletter.subscribe(emailInput.value);
+                    message.textContent = 'Successfully subscribed!';
+                    message.className = 'text-sm mt-2 text-green-400';
+                    message.classList.remove('hidden');
+                    emailInput.value = '';
+                } catch (error) {
+                    message.textContent = error.message;
+                    message.className = 'text-sm mt-2 text-red-400';
+                    message.classList.remove('hidden');
+                }
+                button.disabled = false;
+                button.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,3 +1,6 @@
+// Initialize error monitoring
+import './monitoring.js';
+
 const navbar = document.getElementById('navbar');
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');

@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | InGraviton</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body class="text-gray-800 antialiased overflow-x-hidden bg-gray-50">
+
+    <nav class="fixed w-full z-50 py-4 bg-brand-dark text-white border-b border-gray-700">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-tr from-gray-700 to-brand-blue rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-paper-plane text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold">InGraviton Admin</span>
+                </a>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="userEmail" class="text-sm text-gray-300"></span>
+                <a href="index.html" class="text-sm hover:text-white transition">View Site</a>
+                <button id="logoutBtn" class="text-sm hover:text-white transition">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20 pb-12">
+        <div id="accessDenied" class="hidden text-center py-32">
+            <i class="fa-solid fa-lock text-6xl text-gray-300 mb-4"></i>
+            <h1 class="text-3xl font-bold text-gray-600 mb-2">Access Denied</h1>
+            <p class="text-gray-500 mb-6">You need admin privileges to access this page</p>
+            <a href="login.html" class="inline-block bg-brand-blue text-white px-6 py-3 rounded-full hover:bg-blue-600 transition">
+                Go to Login
+            </a>
+        </div>
+
+        <div id="adminContent" class="hidden max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex gap-6 mt-8">
+                <aside class="w-64 flex-shrink-0">
+                    <nav class="bg-white rounded-2xl shadow-soft p-4 sticky top-28">
+                        <div class="space-y-1">
+                            <button class="nav-item active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition" data-section="overview">
+                                <i class="fa-solid fa-chart-pie text-gray-400"></i>
+                                <span>Overview</span>
+                            </button>
+                            <button class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition" data-section="products">
+                                <i class="fa-solid fa-box text-gray-400"></i>
+                                <span>Products</span>
+                            </button>
+                            <button class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition" data-section="users">
+                                <i class="fa-solid fa-users text-gray-400"></i>
+                                <span>Users</span>
+                            </button>
+                            <button class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition" data-section="orders">
+                                <i class="fa-solid fa-receipt text-gray-400"></i>
+                                <span>Orders</span>
+                            </button>
+                            <button class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition" data-section="custom-builds">
+                                <i class="fa-solid fa-helicopter text-gray-400"></i>
+                                <span>Custom Builds</span>
+                            </button>
+                            <button class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition" data-section="newsletter">
+                                <i class="fa-solid fa-envelope text-gray-400"></i>
+                                <span>Newsletter</span>
+                            </button>
+                        </div>
+                    </nav>
+                </aside>
+
+                <div class="flex-1 space-y-6">
+                    <div id="section-overview" class="section-content">
+                        <h1 class="text-2xl font-bold text-brand-dark mb-6">Dashboard Overview</h1>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                            <div class="bg-white rounded-2xl p-6 shadow-soft">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                        <i class="fa-solid fa-users text-blue-600 text-xl"></i>
+                                    </div>
+                                    <span class="text-xs text-green-500 font-medium flex items-center gap-1">
+                                        <i class="fa-solid fa-arrow-up"></i> 12%
+                                    </span>
+                                </div>
+                                <p id="statUsers" class="text-3xl font-bold text-brand-dark">0</p>
+                                <p class="text-gray-500 text-sm">Total Users</p>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 shadow-soft">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                        <i class="fa-solid fa-box text-green-600 text-xl"></i>
+                                    </div>
+                                    <span class="text-xs text-green-500 font-medium flex items-center gap-1">
+                                        <i class="fa-solid fa-arrow-up"></i> 8%
+                                    </span>
+                                </div>
+                                <p id="statProducts" class="text-3xl font-bold text-brand-dark">0</p>
+                                <p class="text-gray-500 text-sm">Products</p>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 shadow-soft">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                        <i class="fa-solid fa-shopping-cart text-purple-600 text-xl"></i>
+                                    </div>
+                                    <span class="text-xs text-green-500 font-medium flex items-center gap-1">
+                                        <i class="fa-solid fa-arrow-up"></i> 24%
+                                    </span>
+                                </div>
+                                <p id="statOrders" class="text-3xl font-bold text-brand-dark">0</p>
+                                <p class="text-gray-500 text-sm">Total Orders</p>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 shadow-soft">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                        <i class="fa-solid fa-indian-rupee-sign text-yellow-600 text-xl"></i>
+                                    </div>
+                                </div>
+                                <p id="statRevenue" class="text-3xl font-bold text-brand-dark">₹0</p>
+                                <p class="text-gray-500 text-sm">Total Revenue</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                            <div class="bg-white rounded-2xl p-6 shadow-soft">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h3 class="text-lg font-bold text-brand-dark">Recent Orders</h3>
+                                    <button onclick="switchSection('orders')" class="text-brand-blue text-sm hover:underline">View All</button>
+                                </div>
+                                <div id="recentOrders" class="space-y-4">
+                                    <div class="text-center py-4 text-gray-400">
+                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 shadow-soft">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h3 class="text-lg font-bold text-brand-dark">Quick Stats</h3>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                                <i class="fa-solid fa-envelope text-red-500"></i>
+                                            </div>
+                                            <span class="text-gray-600">Newsletter Subscribers</span>
+                                        </div>
+                                        <span id="statSubscribers" class="text-xl font-bold text-brand-dark">0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                                <i class="fa-solid fa-star text-blue-500"></i>
+                                            </div>
+                                            <span class="text-gray-600">Featured Products</span>
+                                        </div>
+                                        <span id="statFeatured" class="text-xl font-bold text-brand-dark">0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                                <i class="fa-solid fa-box-open text-green-500"></i>
+                                            </div>
+                                            <span class="text-gray-600">Products in Stock</span>
+                                        </div>
+                                        <span id="statInStock" class="text-xl font-bold text-brand-dark">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="section-products" class="section-content hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h1 class="text-2xl font-bold text-brand-dark">Products</h1>
+                            <button onclick="showProductModal()" class="bg-brand-blue text-white px-5 py-2.5 rounded-xl hover:bg-blue-600 transition flex items-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Add Product
+                            </button>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                            <div class="p-4 border-b border-gray-100 flex flex-wrap gap-4 items-center">
+                                <div class="relative flex-1 min-w-[200px]">
+                                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                    <input type="text" id="productSearch" placeholder="Search products..." class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                                <select id="productCategoryFilter" class="px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                                    <option value="">All Categories</option>
+                                    <option value="frames">Frames</option>
+                                    <option value="components">Components</option>
+                                    <option value="tools">Tools</option>
+                                </select>
+                                <select id="productStockFilter" class="px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                                    <option value="">All Stock</option>
+                                    <option value="in_stock">In Stock</option>
+                                    <option value="low_stock">Low Stock</option>
+                                    <option value="out_of_stock">Out of Stock</option>
+                                </select>
+                            </div>
+                            <div id="productsList" class="overflow-x-auto">
+                                <div class="p-6 text-center text-gray-400">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+                                </div>
+                            </div>
+                            <div id="productsPagination" class="p-4 border-t border-gray-100 flex justify-between items-center hidden">
+                                <span id="productsPaginationInfo" class="text-sm text-gray-500"></span>
+                                <div id="productsPaginationButtons" class="flex gap-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="section-users" class="section-content hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h1 class="text-2xl font-bold text-brand-dark">Users</h1>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                            <div class="p-4 border-b border-gray-100 flex flex-wrap gap-4 items-center">
+                                <div class="relative flex-1 min-w-[200px]">
+                                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                    <input type="text" id="userSearch" placeholder="Search users..." class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                                <select id="userRoleFilter" class="px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                                    <option value="">All Roles</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="user">User</option>
+                                </select>
+                            </div>
+                            <div id="usersList" class="overflow-x-auto">
+                                <div class="p-6 text-center text-gray-400">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+                                </div>
+                            </div>
+                            <div id="usersPagination" class="p-4 border-t border-gray-100 flex justify-between items-center hidden">
+                                <span id="usersPaginationInfo" class="text-sm text-gray-500"></span>
+                                <div id="usersPaginationButtons" class="flex gap-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="section-orders" class="section-content hidden">
+                        <h1 class="text-2xl font-bold text-brand-dark mb-6">Orders</h1>
+                        <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                            <div class="p-4 border-b border-gray-100 flex flex-wrap gap-4 items-center">
+                                <div class="relative flex-1 min-w-[200px]">
+                                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                    <input type="text" id="orderSearch" placeholder="Search by Order ID or email..." class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                                <select id="orderStatusFilter" class="px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                                    <option value="">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="processing">Processing</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="delivered">Delivered</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <div id="ordersList" class="overflow-x-auto">
+                                <div class="p-6 text-center text-gray-400">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+                                </div>
+                            </div>
+                            <div id="ordersPagination" class="p-4 border-t border-gray-100 flex justify-between items-center hidden">
+                                <span id="ordersPaginationInfo" class="text-sm text-gray-500"></span>
+                                <div id="ordersPaginationButtons" class="flex gap-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="section-custom-builds" class="section-content hidden">
+                        <h1 class="text-2xl font-bold text-brand-dark mb-6">Custom Build Requests</h1>
+                        <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                            <div class="p-4 border-b border-gray-100 flex flex-wrap gap-4 items-center">
+                                <select id="buildStatusFilter" class="px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                                    <option value="">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="reviewing">Reviewing</option>
+                                    <option value="quoted">Quoted</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="in_progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                            </div>
+                            <div id="customBuildsList" class="overflow-x-auto">
+                                <div class="p-6 text-center text-gray-400">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+                                </div>
+                            </div>
+                            <div id="buildsPagination" class="p-4 border-t border-gray-100 flex justify-between items-center hidden">
+                                <span id="buildsPaginationInfo" class="text-sm text-gray-500"></span>
+                                <div id="buildsPaginationButtons" class="flex gap-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="section-newsletter" class="section-content hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h1 class="text-2xl font-bold text-brand-dark">Newsletter Subscribers</h1>
+                            <button onclick="openAddSubscriberModal()" class="bg-brand-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition flex items-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Add Subscriber
+                            </button>
+                        </div>
+                        <div class="mb-4">
+                            <input type="text" id="newsletterSearch" placeholder="Search subscribers..." onkeyup="filterSubscribers()" class="w-full md:w-64 px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-blue outline-none">
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+                            <div id="newsletterList" class="overflow-x-auto">
+                                <div class="p-6 text-center text-gray-400">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+                                </div>
+                            </div>
+                            <div id="newsletterPagination" class="flex justify-center gap-2 p-4 border-t border-gray-100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white rounded-t-2xl">
+                <h2 id="modalTitle" class="text-xl font-bold text-brand-dark">Modal</h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-solid fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="modalContent" class="p-6"></div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6">
+            <h3 class="text-lg font-bold text-brand-dark mb-2">Confirm Delete</h3>
+            <p id="confirmMessage" class="text-gray-600 mb-6">Are you sure you want to delete this item?</p>
+            <div class="flex gap-3">
+                <button onclick="closeConfirmModal()" class="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl hover:bg-gray-50">Cancel</button>
+                <button id="confirmDeleteBtn" class="flex-1 px-4 py-2.5 bg-red-500 text-white rounded-xl hover:bg-red-600">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .nav-item {
+            color: #6b7280;
+            font-weight: 500;
+        }
+        .nav-item:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        .nav-item.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+        .nav-item.active i {
+            color: white !important;
+        }
+    </style>
+
+    <script type="module">
+        import api from './src/js/api.js';
+
+        let deleteCallback = null;
+        let allProducts = [];
+        let allUsers = [];
+        let allOrders = [];
+        let allBuilds = [];
+
+        // Pagination state
+        const paginationState = {
+            products: { page: 1, totalPages: 1, totalItems: 0 },
+            users: { page: 1, totalPages: 1, totalItems: 0 },
+            orders: { page: 1, totalPages: 1, totalItems: 0 },
+            builds: { page: 1, totalPages: 1, totalItems: 0 },
+            newsletter: { page: 1, totalPages: 1, totalItems: 0 }
+        };
+
+        async function checkAdmin() {
+            const isAuth = await api.validateToken();
+            if (!isAuth) {
+                document.getElementById('accessDenied').classList.remove('hidden');
+                return;
+            }
+
+            const user = api.getUser();
+            document.getElementById('userEmail').textContent = user?.email || '';
+
+            if (user?.role !== 'admin') {
+                document.getElementById('accessDenied').classList.remove('hidden');
+                return;
+            }
+
+            document.getElementById('adminContent').classList.remove('hidden');
+            setupNavItems();
+            await loadStats();
+            loadRecentOrders();
+        }
+
+        function setupNavItems() {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const section = item.dataset.section;
+                    switchSection(section);
+                });
+            });
+        }
+
+        window.switchSection = function(section) {
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.nav-item[data-section="${section}"]`).classList.add('active');
+            document.querySelectorAll('.section-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(`section-${section}`).classList.remove('hidden');
+
+            if (section === 'products') loadProducts();
+            else if (section === 'users') loadUsers();
+            else if (section === 'orders') loadOrders();
+            else if (section === 'custom-builds') loadCustomBuilds();
+            else if (section === 'newsletter') loadNewsletter();
+        };
+
+        function renderPagination(paginationId, infoId, buttonsId, state, onPageChange) {
+            const container = document.getElementById(paginationId);
+            const info = document.getElementById(infoId);
+            const buttons = document.getElementById(buttonsId);
+
+            if (state.totalPages <= 1) {
+                container.classList.add('hidden');
+                return;
+            }
+
+            container.classList.remove('hidden');
+            info.textContent = `Page ${state.page} of ${state.totalPages} (${state.totalItems} items)`;
+
+            let html = '';
+            const maxButtons = 5;
+            let startPage = Math.max(1, state.page - Math.floor(maxButtons / 2));
+            let endPage = Math.min(state.totalPages, startPage + maxButtons - 1);
+
+            if (endPage - startPage < maxButtons - 1) {
+                startPage = Math.max(1, endPage - maxButtons + 1);
+            }
+
+            if (startPage > 1) {
+                html += `<button class="px-3 py-1 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition" data-page="1">1</button>`;
+                if (startPage > 2) html += `<span class="px-2 text-gray-400">...</span>`;
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="px-3 py-1 rounded-lg ${i === state.page ? 'bg-brand-blue text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'} transition" data-page="${i}">${i}</button>`;
+            }
+
+            if (endPage < state.totalPages) {
+                if (endPage < state.totalPages - 1) html += `<span class="px-2 text-gray-400">...</span>`;
+                html += `<button class="px-3 py-1 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition" data-page="${state.totalPages}">${state.totalPages}</button>`;
+            }
+
+            buttons.innerHTML = html;
+            buttons.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const newPage = parseInt(btn.dataset.page);
+                    if (newPage !== state.page) {
+                        state.page = newPage;
+                        onPageChange(newPage);
+                        renderPagination(paginationId, infoId, buttonsId, state, onPageChange);
+                    }
+                });
+            });
+        }
+
+        async function loadStats() {
+            try {
+                const [usersRes, productsRes, ordersRes, newsletterRes] = await Promise.all([
+                    fetch('http://localhost:5000/api/users', { headers: { 'Authorization': `Bearer ${api.token}` } }),
+                    fetch('http://localhost:5000/api/products', { headers: { 'Authorization': `Bearer ${api.token}` } }),
+                    fetch('http://localhost:5000/api/orders', { headers: { 'Authorization': `Bearer ${api.token}` } }),
+                    fetch('http://localhost:5000/api/newsletter', { headers: { 'Authorization': `Bearer ${api.token}` } })
+                ]);
+
+                const usersData = await usersRes.json();
+                const productsData = await productsRes.json();
+                const ordersData = await ordersRes.json();
+                const newsletterData = await newsletterRes.json();
+
+                const users = usersData.data || [];
+                const products = productsData.data || [];
+                const orders = ordersData.data || [];
+                const subscribers = newsletterData.data || [];
+                const inStock = products.filter(p => p.stock > 0).length;
+                const featured = products.filter(p => p.featured).length;
+                const revenue = orders.reduce((sum, o) => sum + (o.total || 0), 0);
+
+                document.getElementById('statUsers').textContent = users.length;
+                document.getElementById('statProducts').textContent = products.length;
+                document.getElementById('statOrders').textContent = orders.length;
+                document.getElementById('statRevenue').textContent = '₹' + (revenue * 83).toLocaleString('en-IN');
+                document.getElementById('statSubscribers').textContent = subscribers.length;
+                document.getElementById('statFeatured').textContent = featured;
+                document.getElementById('statInStock').textContent = inStock;
+
+                allProducts = products;
+                allUsers = users;
+                allOrders = orders;
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+            }
+        }
+
+        async function loadRecentOrders() {
+            const container = document.getElementById('recentOrders');
+            try {
+                const res = await fetch('http://localhost:5000/api/orders', {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                const orders = (data.data || []).slice(0, 5);
+
+                if (orders.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-400 py-4">No recent orders</p>';
+                    return;
+                }
+
+                container.innerHTML = orders.map(o => `
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-receipt text-blue-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-brand-dark">#${o._id.slice(-8).toUpperCase()}</p>
+                                <p class="text-sm text-gray-500">${o.shippingAddress?.fullName || 'Unknown'}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-brand-dark">₹${((o.total || 0) * 83).toLocaleString('en-IN')}</p>
+                            <span class="px-2 py-1 rounded-full text-xs ${
+                                o.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                                o.status === 'shipped' ? 'bg-blue-100 text-blue-700' :
+                                o.status === 'processing' ? 'bg-yellow-100 text-yellow-700' :
+                                'bg-gray-100 text-gray-700'
+                            }">${o.status}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                container.innerHTML = '<p class="text-center text-red-400 py-4">Failed to load</p>';
+            }
+        }
+
+        async function loadProducts(page = 1) {
+            const container = document.getElementById('productsList');
+            container.innerHTML = `<div class="p-6 text-center text-gray-400"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>`;
+
+            try {
+                const search = document.getElementById('productSearch').value.toLowerCase();
+                const category = document.getElementById('productCategoryFilter').value;
+                const stockFilter = document.getElementById('productStockFilter').value;
+
+                const params = new URLSearchParams({ page, limit: 10 });
+                if (search) params.append('search', search);
+                if (category) params.append('category', category);
+                if (stockFilter) params.append('stockFilter', stockFilter);
+
+                const res = await fetch(`http://localhost:5000/api/products?${params}`, {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                const products = data.data || [];
+                const pagination = data.pagination || { currentPage: 1, totalPages: 1, totalProducts: 0 };
+
+                paginationState.products = {
+                    page: pagination.currentPage,
+                    totalPages: pagination.totalPages,
+                    totalItems: pagination.totalProducts
+                };
+
+                if (products.length === 0) {
+                    container.innerHTML = '<div class="p-6 text-center text-gray-400">No products found</div>';
+                    return;
+                }
+
+                container.innerHTML = `
+                    <table class="w-full">
+                        <thead class="bg-gray-50 text-left">
+                            <tr>
+                                <th class="p-4 text-sm font-medium text-gray-500">Product</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Category</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Price</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Stock</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Featured</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            ${products.map(p => `
+                                <tr class="hover:bg-gray-50">
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="${p.image}" class="w-12 h-12 rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/48'">
+                                            <div>
+                                                <p class="font-medium text-brand-dark">${p.name}</p>
+                                                <p class="text-xs text-gray-400 truncate max-w-[200px]">${p.description || ''}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium ${
+                                            p.category === 'frames' ? 'bg-purple-100 text-purple-700' :
+                                            p.category === 'components' ? 'bg-blue-100 text-blue-700' :
+                                            'bg-green-100 text-green-700'
+                                        }">${p.category}</span>
+                                    </td>
+                                    <td class="p-4 font-bold text-brand-dark">₹${(p.price * 83).toLocaleString('en-IN')}</td>
+                                    <td class="p-4">
+                                        <span class="${
+                                            p.stock === 0 ? 'text-red-500' :
+                                            p.stock <= 10 ? 'text-yellow-500' : 'text-green-500'
+                                        } font-medium">${p.stock} units</span>
+                                    </td>
+                                    <td class="p-4">
+                                        <i class="fa-solid ${p.featured ? 'fa-star text-yellow-500' : 'fa-star text-gray-300'}"></i>
+                                    </td>
+                                    <td class="p-4">
+                                        <button onclick='showProductModal("${p._id}")' class="text-blue-500 hover:text-blue-700 mr-3">
+                                            <i class="fa-solid fa-edit"></i>
+                                        </button>
+                                        <button onclick='confirmDelete("product", "${p._id}", "${p.name}")' class="text-red-500 hover:text-red-700">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+
+                renderPagination('productsPagination', 'productsPaginationInfo', 'productsPaginationButtons', paginationState.products, (newPage) => loadProducts(newPage));
+            } catch (error) {
+                container.innerHTML = `<div class="p-6 text-center text-red-400">Failed to load: ${error.message}</div>`;
+            }
+        }
+
+        document.getElementById('productSearch')?.addEventListener('input', () => { paginationState.products.page = 1; loadProducts(1); });
+        document.getElementById('productCategoryFilter')?.addEventListener('change', () => { paginationState.products.page = 1; loadProducts(1); });
+        document.getElementById('productStockFilter')?.addEventListener('change', () => { paginationState.products.page = 1; loadProducts(1); });
+
+        window.showProductModal = async function(id) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+
+            let product = {
+                name: '', description: '', price: '', category: 'components', subcategory: '',
+                image: '', images: [], stock: 0, featured: false,
+                specifications: { weight: '', dimensions: '', manufacturer: '', material: '', color: '' }
+            };
+
+            if (id) {
+                title.textContent = 'Edit Product';
+                const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                if (data.success) product = { ...product, ...data.data, specifications: { ...product.specifications, ...data.data.specifications } };
+            } else {
+                title.textContent = 'Add New Product';
+            }
+
+            content.innerHTML = `
+                <form id="productForm" class="space-y-6">
+                    <input type="hidden" name="id" value="${product._id || ''}">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Product Name *</label>
+                            <input type="text" name="name" value="${product.name}" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Price (₹) *</label>
+                            <input type="number" name="price" value="${product.price}" step="0.01" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Description *</label>
+                        <textarea name="description" rows="3" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">${product.description}</textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Category *</label>
+                            <select name="category" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                                <option value="frames" ${product.category === 'frames' ? 'selected' : ''}>Frames</option>
+                                <option value="components" ${product.category === 'components' ? 'selected' : ''}>Components</option>
+                                <option value="tools" ${product.category === 'tools' ? 'selected' : ''}>Tools</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Subcategory</label>
+                            <input type="text" name="subcategory" value="${product.subcategory || ''}" placeholder="e.g., FPV, Racing" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Stock Quantity *</label>
+                            <input type="number" name="stock" value="${product.stock}" min="0" required class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-brand-dark mb-4">Product Images</h4>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Main Image URL</label>
+                            <div class="flex gap-3">
+                                <input type="url" name="image" id="imageUrl" value="${product.image}" placeholder="https://..." class="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                <button type="button" onclick="document.getElementById('imageFile').click()" class="px-4 py-2.5 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition">
+                                    <i class="fa-solid fa-upload"></i>
+                                </button>
+                            </div>
+                            <input type="file" id="imageFile" accept="image/*" class="hidden">
+                            <p id="uploadStatus" class="text-sm mt-2 hidden"></p>
+                            ${product.image ? `<img src="${product.image}" class="mt-2 h-20 w-20 object-cover rounded-xl" onerror="this.src='https://via.placeholder.com/80'">` : ''}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Additional Images (URLs, one per line)</label>
+                            <textarea name="additionalImages" id="additionalImages" rows="2" placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">${(product.images || []).join('\n')}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-brand-dark mb-4">Specifications</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Weight</label>
+                                <input type="text" name="weight" value="${product.specifications.weight || ''}" placeholder="e.g., 250g, 1.5kg" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Dimensions</label>
+                                <input type="text" name="dimensions" value="${product.specifications.dimensions || ''}" placeholder="e.g., 10x10x5 cm" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Manufacturer</label>
+                                <input type="text" name="manufacturer" value="${product.specifications.manufacturer || ''}" placeholder="e.g., DJI, T-Motor" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Material</label>
+                                <input type="text" name="material" value="${product.specifications.material || ''}" placeholder="e.g., Carbon Fiber, Aluminum" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                                <input type="text" name="color" value="${product.specifications.color || ''}" placeholder="e.g., Black, Red" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" name="featured" id="featured" ${product.featured ? 'checked' : ''} class="w-5 h-5 text-brand-blue rounded">
+                        <label for="featured" class="text-sm text-gray-700">Mark as Featured Product</label>
+                    </div>
+
+                    <button type="submit" id="submitProductBtn" class="w-full bg-brand-blue text-white py-3 rounded-xl font-medium hover:bg-blue-600 transition">
+                        ${product._id ? 'Update Product' : 'Create Product'}
+                    </button>
+                </form>
+            `;
+
+            let currentImageUrl = product.image;
+
+            document.getElementById('imageFile').addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const status = document.getElementById('uploadStatus');
+                status.textContent = 'Uploading to Cloudinary...';
+                status.classList.remove('hidden', 'text-red-500', 'text-green-500');
+                status.classList.add('text-blue-500');
+
+                try {
+                    const result = await api.upload.image(file);
+                    currentImageUrl = result.data.url;
+                    document.getElementById('imageUrl').value = currentImageUrl;
+                    status.textContent = 'Upload successful!';
+                    status.classList.remove('text-blue-500');
+                    status.classList.add('text-green-500');
+                } catch (error) {
+                    status.textContent = 'Upload failed: ' + error.message + ' - Please use URL instead';
+                    status.classList.remove('text-blue-500');
+                    status.classList.add('text-red-500');
+                }
+
+                setTimeout(() => status.classList.add('hidden'), 4000);
+            });
+
+            modal.classList.remove('hidden');
+
+            document.getElementById('productForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const id = formData.get('id');
+                const submitBtn = document.getElementById('submitProductBtn');
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Saving...';
+
+                const additionalImagesText = formData.get('additionalImages') || '';
+                const additionalImages = additionalImagesText.split('\n').filter(url => url.trim());
+
+                const productData = {
+                    name: formData.get('name'),
+                    description: formData.get('description'),
+                    price: parseFloat(formData.get('price')),
+                    category: formData.get('category'),
+                    subcategory: formData.get('subcategory'),
+                    image: currentImageUrl || formData.get('image'),
+                    images: additionalImages,
+                    stock: parseInt(formData.get('stock')),
+                    featured: formData.get('featured') === 'on',
+                    ratings: product.ratings || 0,
+                    numReviews: product.numReviews || 0,
+                    specifications: {
+                        weight: formData.get('weight'),
+                        dimensions: formData.get('dimensions'),
+                        manufacturer: formData.get('manufacturer'),
+                        material: formData.get('material'),
+                        color: formData.get('color')
+                    }
+                };
+
+                try {
+                    const url = id ? `/api/products/${id}` : '/api/products';
+                    const method = id ? 'PUT' : 'POST';
+                    await fetch(`http://localhost:5000${url}`, {
+                        method,
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${api.token}` },
+                        body: JSON.stringify(productData)
+                    });
+                    closeModal();
+                    await loadStats();
+                    loadProducts();
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                }
+            });
+        };
+
+        async function loadUsers(page = 1) {
+            const container = document.getElementById('usersList');
+            container.innerHTML = `<div class="p-6 text-center text-gray-400"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>`;
+
+            try {
+                const search = document.getElementById('userSearch').value.toLowerCase();
+                const roleFilter = document.getElementById('userRoleFilter').value;
+
+                const params = new URLSearchParams({ page, limit: 10 });
+                if (search) params.append('search', search);
+                if (roleFilter) params.append('role', roleFilter);
+
+                const res = await fetch(`http://localhost:5000/api/users?${params}`, {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                const users = data.data || [];
+                const pagination = data.pagination || { currentPage: 1, totalPages: 1, totalUsers: 0 };
+
+                paginationState.users = {
+                    page: pagination.currentPage,
+                    totalPages: pagination.totalPages,
+                    totalItems: pagination.totalUsers
+                };
+
+                if (users.length === 0) {
+                    container.innerHTML = '<div class="p-6 text-center text-gray-400">No users found</div>';
+                    return;
+                }
+
+                container.innerHTML = `
+                    <table class="w-full">
+                        <thead class="bg-gray-50 text-left">
+                            <tr>
+                                <th class="p-4 text-sm font-medium text-gray-500">User</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Email</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Role</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Joined</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            ${users.map(u => `
+                                <tr class="hover:bg-gray-50">
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-gradient-to-tr from-brand-dark to-brand-blue rounded-full flex items-center justify-center text-white font-medium">
+                                                ${u.name.charAt(0).toUpperCase()}
+                                            </div>
+                                            <span class="font-medium text-brand-dark">${u.name}</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-gray-600">${u.email}</td>
+                                    <td class="p-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium ${u.role === 'admin' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}">
+                                            ${u.role}
+                                        </span>
+                                    </td>
+                                    <td class="p-4 text-gray-500">${new Date(u.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
+                                    <td class="p-4">
+                                        <button onclick='confirmDelete("user", "${u._id}", "${u.name}")' class="text-red-500 hover:text-red-700">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+
+                renderPagination('usersPagination', 'usersPaginationInfo', 'usersPaginationButtons', paginationState.users, (newPage) => loadUsers(newPage));
+            } catch (error) {
+                container.innerHTML = `<div class="p-6 text-center text-red-400">Failed to load: ${error.message}</div>`;
+            }
+        }
+
+        document.getElementById('userSearch')?.addEventListener('input', () => { paginationState.users.page = 1; loadUsers(1); });
+        document.getElementById('userRoleFilter')?.addEventListener('change', () => { paginationState.users.page = 1; loadUsers(1); });
+
+        async function loadOrders(page = 1) {
+            const container = document.getElementById('ordersList');
+            container.innerHTML = `<div class="p-6 text-center text-gray-400"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>`;
+
+            try {
+                const search = document.getElementById('orderSearch').value.toLowerCase();
+                const statusFilter = document.getElementById('orderStatusFilter').value;
+
+                const params = new URLSearchParams({ page, limit: 10 });
+                if (search) params.append('search', search);
+                if (statusFilter) params.append('status', statusFilter);
+
+                const res = await fetch(`http://localhost:5000/api/orders?${params}`, {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                const orders = data.data || [];
+                const pagination = data.pagination || { currentPage: 1, totalPages: 1, totalOrders: 0 };
+
+                paginationState.orders = {
+                    page: pagination.currentPage,
+                    totalPages: pagination.totalPages,
+                    totalItems: pagination.totalOrders
+                };
+
+                if (orders.length === 0) {
+                    container.innerHTML = '<div class="p-6 text-center text-gray-400">No orders found</div>';
+                    return;
+                }
+
+                container.innerHTML = `
+                    <table class="w-full">
+                        <thead class="bg-gray-50 text-left">
+                            <tr>
+                                <th class="p-4 text-sm font-medium text-gray-500">Order ID</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Customer</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Items</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Total</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Status</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Date</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            ${orders.map(o => `
+                                <tr class="hover:bg-gray-50">
+                                    <td class="p-4 font-medium font-mono text-sm">#${o._id.slice(-8).toUpperCase()}</td>
+                                    <td class="p-4">
+                                        <div class="font-medium text-brand-dark">${o.shippingAddress?.fullName || 'N/A'}</div>
+                                        <div class="text-xs text-gray-400">${o.user?.email || ''}</div>
+                                    </td>
+                                    <td class="p-4">${o.items?.length || 0}</td>
+                                    <td class="p-4 font-bold text-brand-dark">₹${((o.total || 0) * 83).toLocaleString('en-IN')}</td>
+                                    <td class="p-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium ${
+                                            o.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                                            o.status === 'shipped' ? 'bg-blue-100 text-blue-700' :
+                                            o.status === 'processing' ? 'bg-yellow-100 text-yellow-700' :
+                                            o.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+                                            'bg-gray-100 text-gray-700'
+                                        }">${o.status}</span>
+                                    </td>
+                                    <td class="p-4 text-gray-500">${new Date(o.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
+                                    <td class="p-4">
+                                        <button onclick='showOrderModal("${o._id}", "${o.status}")' class="text-blue-500 hover:text-blue-700 mr-3">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button onclick='confirmDelete("order", "${o._id}", "Order #${o._id.slice(-8).toUpperCase()}")' class="text-red-500 hover:text-red-700">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+
+                renderPagination('ordersPagination', 'ordersPaginationInfo', 'ordersPaginationButtons', paginationState.orders, (newPage) => loadOrders(newPage));
+            } catch (error) {
+                container.innerHTML = `<div class="p-6 text-center text-red-400">Failed to load: ${error.message}</div>`;
+            }
+        }
+
+        document.getElementById('orderSearch')?.addEventListener('input', () => { paginationState.orders.page = 1; loadOrders(1); });
+        document.getElementById('orderStatusFilter')?.addEventListener('change', () => { paginationState.orders.page = 1; loadOrders(1); });
+
+        window.showOrderModal = async function(id, currentStatus) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+
+            try {
+                const res = await fetch(`http://localhost:5000/api/orders/${id}`, {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                const order = data.data;
+
+                title.textContent = `Order #${order._id.slice(-8).toUpperCase()}`;
+
+                const statuses = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
+
+                content.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <h4 class="font-semibold text-brand-dark mb-3">Customer Details</h4>
+                                <div class="space-y-2 text-sm">
+                                    <p><span class="text-gray-500">Name:</span> <span class="font-medium">${order.shippingAddress?.fullName || 'N/A'}</span></p>
+                                    <p><span class="text-gray-500">Email:</span> <span class="font-medium">${order.user?.email || order.shippingAddress?.email || 'N/A'}</span></p>
+                                    <p><span class="text-gray-500">Phone:</span> <span class="font-medium">${order.shippingAddress?.phone || 'N/A'}</span></p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <h4 class="font-semibold text-brand-dark mb-3">Shipping Address</h4>
+                                <div class="space-y-2 text-sm">
+                                    <p class="font-medium">${order.shippingAddress?.address || 'N/A'}</p>
+                                    <p>${order.shippingAddress?.city || ''}, ${order.shippingAddress?.state || ''} ${order.shippingAddress?.pincode || ''}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <h4 class="font-semibold text-brand-dark mb-3">Order Items</h4>
+                            <div class="space-y-3">
+                                ${(order.items || []).map(item => `
+                                    <div class="flex items-center justify-between py-2 border-b border-gray-200 last:border-0">
+                                        <div class="flex items-center gap-3">
+                                            <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://via.placeholder.com/48'">
+                                            <div>
+                                                <p class="font-medium text-brand-dark">${item.name}</p>
+                                                <p class="text-xs text-gray-500">Qty: ${item.quantity} × ₹${(item.price * 83).toLocaleString('en-IN')}</p>
+                                            </div>
+                                        </div>
+                                        <p class="font-bold text-brand-dark">₹${((item.price * item.quantity * 83)).toLocaleString('en-IN')}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center p-4 bg-brand-dark text-white rounded-xl">
+                            <div>
+                                <p class="text-gray-300 text-sm">Total Amount</p>
+                                <p class="text-2xl font-bold">₹${((order.total || 0) * 83).toLocaleString('en-IN')}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-300 text-sm">Order Date</p>
+                                <p class="font-medium">${new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                            </div>
+                        </div>
+
+                        <form id="orderForm" class="space-y-4 pt-4 border-t border-gray-200">
+                            <input type="hidden" name="id" value="${id}">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Order Status</label>
+                                <select name="status" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                                    ${statuses.map(s => `<option value="${s}" ${s === currentStatus ? 'selected' : ''}>${s.charAt(0).toUpperCase() + s.slice(1)}</option>`).join('')}
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full bg-brand-blue text-white py-3 rounded-xl font-medium hover:bg-blue-600 transition">
+                                Update Order Status
+                            </button>
+                        </form>
+                        <button onclick='confirmDelete("order", "${id}", "Order #${id.slice(-8).toUpperCase()}"); closeModal();' class="w-full mt-3 bg-red-50 text-red-600 py-3 rounded-xl font-medium hover:bg-red-100 transition border border-red-200">
+                            <i class="fa-solid fa-trash mr-2"></i> Delete Order
+                        </button>
+                    </div>
+                `;
+
+                modal.classList.remove('hidden');
+
+                document.getElementById('orderForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    try {
+                        await fetch(`http://localhost:5000/api/orders/${id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${api.token}` },
+                            body: JSON.stringify({ status: formData.get('status') })
+                        });
+                        closeModal();
+                        await loadStats();
+                        loadOrders();
+                        loadRecentOrders();
+                    } catch (error) {
+                        alert('Error: ' + error.message);
+                    }
+                });
+            } catch (error) {
+                alert('Failed to load order details: ' + error.message);
+            }
+        };
+
+        async function loadCustomBuilds(page = 1) {
+            const container = document.getElementById('customBuildsList');
+            container.innerHTML = `<div class="p-6 text-center text-gray-400"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>`;
+
+            try {
+                const statusFilter = document.getElementById('buildStatusFilter').value;
+
+                const params = new URLSearchParams({ page, limit: 10 });
+                if (statusFilter) params.append('status', statusFilter);
+
+                const res = await fetch(`http://localhost:5000/api/custom-build?${params}`, {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                const builds = data.data || [];
+                const pagination = data.pagination || { currentPage: 1, totalPages: 1, total: 0 };
+
+                paginationState.builds = {
+                    page: pagination.currentPage,
+                    totalPages: pagination.totalPages,
+                    totalItems: pagination.total
+                };
+
+                if (builds.length === 0) {
+                    container.innerHTML = '<div class="p-6 text-center text-gray-400">No requests found</div>';
+                    return;
+                }
+
+                container.innerHTML = `
+                    <table class="w-full">
+                        <thead class="bg-gray-50 text-left">
+                            <tr>
+                                <th class="p-4 text-sm font-medium text-gray-500">Use Case</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Email</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Budget</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Quote</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Status</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Date</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            ${builds.map(r => `
+                                <tr class="hover:bg-gray-50">
+                                    <td class="p-4 font-medium text-brand-dark">${r.useCase}</td>
+                                    <td class="p-4 text-gray-600">${r.email}</td>
+                                    <td class="p-4">${r.budgetRange}</td>
+                                    <td class="p-4 font-bold text-brand-dark">${r.quotedPrice ? '₹' + (r.quotedPrice * 83).toLocaleString('en-IN') : '-'}</td>
+                                    <td class="p-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium ${
+                                            r.status === 'completed' ? 'bg-green-100 text-green-700' :
+                                            r.status === 'approved' ? 'bg-blue-100 text-blue-700' :
+                                            r.status === 'rejected' ? 'bg-red-100 text-red-700' :
+                                            'bg-yellow-100 text-yellow-700'
+                                        }">${r.status}</span>
+                                    </td>
+                                    <td class="p-4 text-gray-500">${new Date(r.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
+                                    <td class="p-4">
+                                        <button onclick='showBuildModal("${r._id}", "${r.status}", ${r.quotedPrice || 0})' class="text-blue-500 hover:text-blue-700 mr-3">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button onclick='confirmDelete("custom-build", "${r._id}", "Custom Build Request")' class="text-red-500 hover:text-red-700">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+
+                renderPagination('buildsPagination', 'buildsPaginationInfo', 'buildsPaginationButtons', paginationState.builds, (newPage) => loadCustomBuilds(newPage));
+            } catch (error) {
+                container.innerHTML = `<div class="p-6 text-center text-red-400">Failed to load: ${error.message}</div>`;
+            }
+        }
+
+        document.getElementById('buildStatusFilter')?.addEventListener('change', () => { paginationState.builds.page = 1; loadCustomBuilds(1); });
+
+        window.showBuildModal = async function(id, currentStatus, currentQuote) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+
+            try {
+                const res = await fetch(`http://localhost:5000/api/custom-build/${id}`, {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                const build = data.data;
+
+                title.textContent = 'Custom Build Request';
+
+                const statuses = ['pending', 'reviewing', 'quoted', 'approved', 'in_progress', 'completed', 'rejected'];
+
+                content.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <h4 class="font-semibold text-brand-dark mb-3">Contact Details</h4>
+                                <div class="space-y-2 text-sm">
+                                    <p><span class="text-gray-500">Email:</span> <span class="font-medium">${build.email}</span></p>
+                                    <p><span class="text-gray-500">Use Case:</span> <span class="font-medium">${build.useCase}</span></p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <h4 class="font-semibold text-brand-dark mb-3">Build Requirements</h4>
+                                <div class="space-y-2 text-sm">
+                                    <p><span class="text-gray-500">Budget:</span> <span class="font-medium">${build.budgetRange}</span></p>
+                                    <p><span class="text-gray-500">Flight Time:</span> <span class="font-medium">${build.flightTime || 'Not specified'}</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${build.additionalRequirements ? `
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <h4 class="font-semibold text-brand-dark mb-3">Additional Requirements</h4>
+                                <p class="text-sm text-gray-700 leading-relaxed">${build.additionalRequirements}</p>
+                            </div>
+                        ` : ''}
+
+                        <div class="flex justify-between items-center p-4 bg-brand-dark text-white rounded-xl">
+                            <div>
+                                <p class="text-gray-300 text-sm">Budget Range</p>
+                                <p class="text-xl font-bold">${build.budgetRange}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-300 text-sm">Request Date</p>
+                                <p class="font-medium">${new Date(build.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                            </div>
+                        </div>
+
+                        <form id="buildForm" class="space-y-4 pt-4 border-t border-gray-200">
+                            <input type="hidden" name="id" value="${id}">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                                    <select name="status" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                                        ${statuses.map(s => `<option value="${s}" ${s === currentStatus ? 'selected' : ''}>${s.charAt(0).toUpperCase() + s.slice(1).replace('_', ' ')}</option>`).join('')}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Quoted Price (₹)</label>
+                                    <input type="number" name="quotedPrice" value="${currentQuote || ''}" step="0.01" placeholder="Enter quoted price" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Response Notes</label>
+                                <textarea name="responseNotes" rows="2" placeholder="Add response notes..." class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">${build.responseNotes || ''}</textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-brand-blue text-white py-3 rounded-xl font-medium hover:bg-blue-600 transition">
+                                Update Request
+                            </button>
+                        </form>
+                        <button onclick='confirmDelete("custom-build", "${id}", "Custom Build Request"); closeModal();' class="w-full mt-3 bg-red-50 text-red-600 py-3 rounded-xl font-medium hover:bg-red-100 transition border border-red-200">
+                            <i class="fa-solid fa-trash mr-2"></i> Delete Request
+                        </button>
+                    </div>
+                `;
+
+                modal.classList.remove('hidden');
+
+                document.getElementById('buildForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    try {
+                        await fetch(`http://localhost:5000/api/custom-build/${id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${api.token}` },
+                            body: JSON.stringify({
+                                status: formData.get('status'),
+                                quotedPrice: parseFloat(formData.get('quotedPrice')) || undefined,
+                                responseNotes: formData.get('responseNotes')
+                            })
+                        });
+                        closeModal();
+                        loadCustomBuilds();
+                    } catch (error) {
+                        alert('Error: ' + error.message);
+                    }
+                });
+            } catch (error) {
+                alert('Failed to load build details: ' + error.message);
+            }
+        };
+
+        async function loadNewsletter(page = 1) {
+            paginationState.newsletter.page = page;
+            const container = document.getElementById('newsletterList');
+            container.innerHTML = `<div class="p-6 text-center text-gray-400"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>`;
+
+            try {
+                const search = document.getElementById('newsletterSearch')?.value || '';
+                const status = paginationState.newsletter.status || '';
+                let url = `http://localhost:5000/api/newsletter?includeUnsubscribed=true&page=${page}&limit=10`;
+                if (search) url += '&search=' + encodeURIComponent(search);
+                if (status) url += '&status=' + status;
+
+                const res = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+                window.allSubscribers = data.data || [];
+
+                const pagination = data.pagination || { currentPage: 1, totalPages: 1, totalSubscribers: 0 };
+                paginationState.newsletter = {
+                    page: pagination.currentPage,
+                    totalPages: pagination.totalPages,
+                    totalItems: pagination.totalSubscribers
+                };
+
+                renderSubscribersTable(window.allSubscribers);
+                renderNewsletterPagination(paginationState.newsletter, page);
+            } catch (error) {
+                container.innerHTML = `<div class="p-6 text-center text-red-400">Failed to load: ${error.message}</div>`;
+            }
+        }
+
+        function renderNewsletterPagination(state, currentPage) {
+            const container = document.getElementById('newsletterPagination');
+            if (!container) return;
+
+            if (state.totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            html += `<button ${currentPage === 1 ? 'disabled' : ''} onclick="loadNewsletter(${currentPage - 1})" class="px-3 py-1 rounded-lg text-sm ${currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>`;
+
+            for (let i = 1; i <= state.totalPages; i++) {
+                if (i === 1 || i === state.totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    html += `<button onclick="loadNewsletter(${i})" class="px-3 py-1 rounded-lg text-sm ${i === currentPage ? 'bg-brand-blue text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}">${i}</button>`;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    html += `<span class="px-1 text-gray-400">...</span>`;
+                }
+            }
+
+            html += `<button ${currentPage === state.totalPages ? 'disabled' : ''} onclick="loadNewsletter(${currentPage + 1})" class="px-3 py-1 rounded-lg text-sm ${currentPage === state.totalPages ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>`;
+
+            container.innerHTML = html;
+        }
+
+        function renderSubscribersTable(subscribers) {
+            const container = document.getElementById('newsletterList');
+            const activeCount = subscribers.filter(s => s.subscribed).length;
+            const inactiveCount = subscribers.length - activeCount;
+
+            container.innerHTML = `
+                <div class="p-4 bg-gray-50 border-b border-gray-100 flex flex-wrap justify-between items-center gap-4">
+                    <div class="flex gap-6">
+                        <span class="font-medium text-brand-dark">Total: <span class="text-brand-blue">${subscribers.length}</span></span>
+                        <span class="font-medium text-green-600">Active: <span class="text-green-500">${activeCount}</span></span>
+                        <span class="font-medium text-gray-500">Inactive: <span class="text-gray-400">${inactiveCount}</span></span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="showAllSubscribers()" class="px-3 py-1 text-sm rounded-lg ${document.getElementById('newsletterSearch').value === '' ? 'bg-brand-blue text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'} transition">All</button>
+                        <button onclick="showActiveSubscribers()" class="px-3 py-1 text-sm rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition">Active</button>
+                        <button onclick="showInactiveSubscribers()" class="px-3 py-1 text-sm rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition">Inactive</button>
+                    </div>
+                </div>
+                ${subscribers.length === 0 ? '<div class="p-6 text-center text-gray-400">No subscribers found</div>' : `
+                    <table class="w-full">
+                        <thead class="bg-gray-50 text-left">
+                            <tr>
+                                <th class="p-4 text-sm font-medium text-gray-500">Email</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Status</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Subscribed</th>
+                                <th class="p-4 text-sm font-medium text-gray-500">Unsubscribed</th>
+                                <th class="p-4 text-sm font-medium text-gray-500 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            ${subscribers.map(s => `
+                                <tr class="hover:bg-gray-50 subscriber-row" data-email="${s.email.toLowerCase()}" data-status="${s.subscribed ? 'active' : 'inactive'}">
+                                    <td class="p-4 font-medium">${s.email}</td>
+                                    <td class="p-4">
+                                        <span class="px-2 py-1 text-xs rounded-full ${s.subscribed ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}">
+                                            ${s.subscribed ? 'Subscribed' : 'Unsubscribed'}
+                                        </span>
+                                    </td>
+                                    <td class="p-4 text-gray-500">${s.subscribedAt ? new Date(s.subscribedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '-'}</td>
+                                    <td class="p-4 text-gray-500">${s.unsubscribedAt ? new Date(s.unsubscribedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '-'}</td>
+                                    <td class="p-4 text-right">
+                                        <div class="flex justify-end gap-2">
+                                            <button onclick="toggleSubscriberStatus('${s._id}')" class="p-2 rounded-lg ${s.subscribed ? 'bg-orange-100 text-orange-600 hover:bg-orange-200' : 'bg-green-100 text-green-600 hover:bg-green-200'} transition" title="${s.subscribed ? 'Unsubscribe' : 'Reactivate'}">
+                                                <i class="fa-solid ${s.subscribed ? 'fa-ban' : 'fa-check'}"></i>
+                                            </button>
+                                            <button onclick="openEditSubscriberModal('${s._id}')" class="p-2 rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200 transition" title="Edit">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button onclick="confirmDeleteSubscriber('${s._id}', '${s.email}')" class="p-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition" title="Delete">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `}
+            `;
+        }
+
+        window.filterSubscribers = function() {
+            loadNewsletter(1);
+        };
+
+        window.showAllSubscribers = function() {
+            paginationState.newsletter.status = '';
+            loadNewsletter(1);
+            document.getElementById('newsletterSearch').value = '';
+        };
+
+        window.showActiveSubscribers = function() {
+            paginationState.newsletter.status = 'active';
+            loadNewsletter(1);
+            document.getElementById('newsletterSearch').value = '';
+        };
+
+        window.showInactiveSubscribers = function() {
+            paginationState.newsletter.status = 'inactive';
+            loadNewsletter(1);
+            document.getElementById('newsletterSearch').value = '';
+        };
+
+        window.openAddSubscriberModal = function() {
+            const modal = document.getElementById('modal');
+            document.getElementById('modalTitle').textContent = 'Add Subscriber';
+            document.getElementById('modalContent').innerHTML = `
+                <form id="addSubscriberForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+                        <input type="email" name="email" required placeholder="subscriber@example.com" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Name (Optional)</label>
+                        <input type="text" name="name" placeholder="Subscriber name" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" name="sendWelcome" id="sendWelcome" checked class="rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
+                        <label for="sendWelcome" class="text-sm text-gray-600">Send welcome email</label>
+                    </div>
+                    <button type="submit" class="w-full bg-brand-blue text-white py-3 rounded-xl font-medium hover:bg-blue-600 transition">
+                        Add Subscriber
+                    </button>
+                </form>
+            `;
+            modal.classList.remove('hidden');
+
+            document.getElementById('addSubscriberForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const email = formData.get('email').trim();
+                const name = formData.get('name').trim();
+
+                try {
+                    const res = await fetch('http://localhost:5000/api/newsletter', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${api.token}`
+                        },
+                        body: JSON.stringify({ email, name })
+                    });
+                    const data = await res.json();
+
+                    if (!res.ok) {
+                        throw new Error(data.message || 'Failed to add subscriber');
+                    }
+
+                    closeModal();
+                    loadNewsletter();
+                    loadStats();
+                } catch (error) {
+                    alert(error.message);
+                }
+            });
+        };
+
+        window.openEditSubscriberModal = function(id) {
+            const subscriber = window.allSubscribers.find(s => s._id === id);
+            if (!subscriber) return;
+
+            const modal = document.getElementById('modal');
+            document.getElementById('modalTitle').textContent = 'Edit Subscriber';
+            document.getElementById('modalContent').innerHTML = `
+                <form id="editSubscriberForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input type="email" name="email" value="${subscriber.email}" required placeholder="subscriber@example.com" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select name="subscribed" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                            <option value="true" ${subscriber.subscribed ? 'selected' : ''}>Subscribed</option>
+                            <option value="false" ${!subscriber.subscribed ? 'selected' : ''}>Unsubscribed</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-brand-blue text-white py-3 rounded-xl font-medium hover:bg-blue-600 transition">
+                        Save Changes
+                    </button>
+                </form>
+                <button onclick="confirmDeleteSubscriber('${subscriber._id}', '${subscriber.email}')" class="w-full mt-3 bg-red-50 text-red-600 py-3 rounded-xl font-medium hover:bg-red-100 transition border border-red-200">
+                    <i class="fa-solid fa-trash mr-2"></i> Delete Subscriber
+                </button>
+            `;
+            modal.classList.remove('hidden');
+
+            document.getElementById('editSubscriberForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const email = formData.get('email').trim();
+                const subscribed = formData.get('subscribed') === 'true';
+
+                try {
+                    const res = await fetch(`http://localhost:5000/api/newsletter/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${api.token}`
+                        },
+                        body: JSON.stringify({ email, subscribed })
+                    });
+                    const data = await res.json();
+
+                    if (!res.ok) {
+                        throw new Error(data.message || 'Failed to update subscriber');
+                    }
+
+                    closeModal();
+                    loadNewsletter();
+                    loadStats();
+                } catch (error) {
+                    alert(error.message);
+                }
+            });
+        };
+
+        window.toggleSubscriberStatus = async function(id) {
+            try {
+                const res = await fetch(`http://localhost:5000/api/newsletter/${id}/toggle`, {
+                    method: 'PATCH',
+                    headers: { 'Authorization': `Bearer ${api.token}` }
+                });
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.message || 'Failed to toggle status');
+                }
+
+                loadNewsletter();
+                loadStats();
+            } catch (error) {
+                alert(error.message);
+            }
+        };
+
+        window.confirmDeleteSubscriber = function(id, email) {
+            document.getElementById('confirmMessage').textContent = `Are you sure you want to delete subscriber "${email}"? This action cannot be undone.`;
+            document.getElementById('confirmModal').classList.remove('hidden');
+
+            document.getElementById('confirmDeleteBtn').onclick = async () => {
+                try {
+                    const res = await fetch(`http://localhost:5000/api/newsletter/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${api.token}` }
+                    });
+
+                    if (!res.ok) {
+                        throw new Error('Failed to delete subscriber');
+                    }
+
+                    closeConfirmModal();
+                    loadNewsletter();
+                    loadStats();
+                } catch (error) {
+                    alert(error.message);
+                }
+            };
+        };
+
+        window.confirmDelete = function(type, id, name) {
+            document.getElementById('confirmMessage').textContent = `Are you sure you want to delete "${name}"? This action cannot be undone.`;
+            document.getElementById('confirmModal').classList.remove('hidden');
+            deleteCallback = async () => {
+                try {
+                    const endpoints = {
+                        product: `/api/products/${id}`,
+                        user: `/api/users/${id}`,
+                        order: `/api/orders/${id}`,
+                        'custom-build': `/api/custom-build/${id}`
+                    };
+                    await fetch(`http://localhost:5000${endpoints[type]}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${api.token}` }
+                    });
+                    closeConfirmModal();
+                    await loadStats();
+                    if (type === 'product') loadProducts();
+                    if (type === 'user') loadUsers();
+                    if (type === 'order') { loadOrders(); loadRecentOrders(); }
+                    if (type === 'custom-build') loadCustomBuilds();
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                }
+            };
+            document.getElementById('confirmDeleteBtn').onclick = deleteCallback;
+        };
+
+        window.closeConfirmModal = function() {
+            document.getElementById('confirmModal').classList.add('hidden');
+            deleteCallback = null;
+        };
+
+        window.closeModal = function() {
+            document.getElementById('modal').classList.add('hidden');
+        };
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('Logout from admin?')) api.auth.logout();
+        });
+
+        checkAdmin();
+    </script>
+</body>
+</html>

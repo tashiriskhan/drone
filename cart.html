@@ -40,7 +40,7 @@
                     </a>
                     
                     <div class="hidden md:flex items-center gap-3 ml-4 border-l pl-4 border-gray-200">
-                        <a href="#" class="text-sm font-medium text-gray-600 hover:text-brand-dark">Login</a>
+                        <a href="#" id="authLink" class="text-sm font-medium text-gray-600 hover:text-brand-dark">Login</a>
                     </div>
                     
                     <button id="mobileMenuBtn" class="lg:hidden text-gray-800 text-xl">
@@ -55,6 +55,11 @@
                     <a href="frames.html" class="block py-2 text-gray-600 hover:text-brand-dark">Frame Assembly</a>
                     <a href="components.html" class="block py-2 text-gray-600 hover:text-brand-dark">Components</a>
                     <a href="tools.html" class="block py-2 text-gray-600 hover:text-brand-dark">Tools</a>
+                    <a href="about.html" class="block py-2 text-gray-600 hover:text-brand-dark">About</a>
+                    <a href="support.html" class="block py-2 text-gray-600 hover:text-brand-dark">Support</a>
+                    <div class="pt-2 border-t border-gray-200">
+                        <a href="login.html" id="mobileAuthLink" class="block py-2 text-gray-600">Login</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,12 +68,16 @@
     <section class="pt-32 pb-16">
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
             <h1 class="text-4xl md:text-5xl font-bold text-brand-dark mb-4">Shopping Cart</h1>
+            <p id="cartStatus" class="text-gray-500"></p>
         </div>
     </section>
 
     <section class="py-8">
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
             <div id="cartItems" class="space-y-4">
+                <div class="text-center py-8">
+                    <i class="fa-solid fa-spinner fa-spin text-2xl text-gray-400"></i>
+                </div>
             </div>
 
             <div id="emptyCart" class="text-center py-16 hidden">
@@ -80,6 +89,18 @@
                 </a>
             </div>
 
+            <div id="loginPrompt" class="text-center py-16 hidden">
+                <i class="fa-solid fa-user text-6xl text-gray-300 mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-600 mb-2">Login to view your cart</h2>
+                <p class="text-gray-500 mb-6">Sign in to see your saved cart items</p>
+                <a href="login.html" class="inline-block bg-brand-blue text-white px-6 py-3 rounded-full hover:bg-blue-600 transition mr-4">
+                    Login
+                </a>
+                <a href="register.html" class="inline-block bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-300 transition">
+                    Create Account
+                </a>
+            </div>
+
             <div id="cartSummary" class="mt-8 bg-white rounded-2xl p-6 shadow-soft hidden">
                 <div class="flex justify-between items-center mb-6">
                     <span class="text-gray-600">Subtotal</span>
@@ -87,7 +108,7 @@
                 </div>
                 <div class="flex justify-between items-center mb-6">
                     <span class="text-gray-600">Shipping</span>
-                    <span class="text-brand-dark">Free</span>
+                    <span id="shipping" class="text-brand-dark">Free</span>
                 </div>
                 <div class="border-t border-gray-200 pt-4 flex justify-between items-center mb-6">
                     <span class="text-lg font-bold text-brand-dark">Total</span>
@@ -104,45 +125,195 @@
     </section>
 
     <footer class="bg-brand-dark text-gray-400 py-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-            <div class="flex items-center justify-center gap-2 mb-4 text-white">
-                <div class="w-6 h-6 bg-gradient-to-tr from-gray-700 to-brand-blue rounded flex items-center justify-center">
-                    <i class="fa-solid fa-paper-plane text-[10px]"></i>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-6 text-white">
+                        <div class="w-6 h-6 bg-gradient-to-tr from-gray-700 to-brand-blue rounded flex items-center justify-center">
+                            <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                        </div>
+                        <span class="text-lg font-bold">InGraviton</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6">
+                        Premium drone components and assembly tools for the next generation of aerial technology.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://twitter.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
                 </div>
-                <span class="text-lg font-bold">InGraviton</span>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Products</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="products.html" class="hover:text-brand-blue transition">All Products</a></li>
+                        <li><a href="frames.html" class="hover:text-brand-blue transition">Frame Assembly</a></li>
+                        <li><a href="components.html" class="hover:text-brand-blue transition">Components</a></li>
+                        <li><a href="tools.html" class="hover:text-brand-blue transition">Tools</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Company</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="about.html" class="hover:text-brand-blue transition">About Us</a></li>
+                        <li><a href="support.html" class="hover:text-brand-blue transition">Contact</a></li>
+                        <li><a href="support.html" class="hover:text-brand-blue transition">Support Center</a></li>
+                        <li><a href="custom-build.html" class="hover:text-brand-blue transition">Custom Builds</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Stay Updated</h4>
+                    <p class="text-sm mb-4">Subscribe for latest drops and tech news.</p>
+                    <form id="newsletterForm" class="flex gap-2">
+                        <input type="email" id="newsletterEmail" placeholder="Email address" required class="bg-gray-800 border-none rounded-lg px-4 py-2 text-sm text-white w-full focus:ring-1 focus:ring-brand-blue outline-none">
+                        <button type="submit" class="bg-brand-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    <p id="newsletterMessage" class="text-sm mt-2 hidden"></p>
+                </div>
             </div>
-            <p class="text-sm">&copy; 2024 InGraviton Inc. All rights reserved.</p>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                <p>&copy; <span id="currentYear"></span> InGraviton Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="about.html" class="hover:text-white">Privacy Policy</a>
+                    <a href="about.html" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <div id="checkoutModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-brand-dark">Checkout</h2>
+                    <button id="closeCheckout" class="text-gray-400 hover:text-gray-600">
+                        <i class="fa-solid fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <form id="checkoutForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" name="fullName" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                        <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                        <input type="text" name="address" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                            <input type="text" name="city" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                            <input type="text" name="state" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
+                            <input type="text" name="zipCode" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                            <input type="text" name="country" value="India" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
+                        <select name="paymentMethod" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none">
+                            <option value="credit_card">Credit Card</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="bank_transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Order Notes (Optional)</label>
+                        <textarea name="notes" rows="2" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-brand-blue text-white py-4 rounded-full font-medium hover:bg-blue-600 transition">
+                        Place Order
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="/src/js/main.js"></script>
-    <script type="module" src="/src/js/cart.js"></script>
     <script type="module">
-        import { cart } from '/src/js/cart.js';
+        import api from './src/js/api.js';
+        import { cart } from './src/js/cart.js';
         
-        function renderCart() {
+        async function renderCart() {
             const cartItems = document.getElementById('cartItems');
             const emptyCart = document.getElementById('emptyCart');
+            const loginPrompt = document.getElementById('loginPrompt');
             const cartSummary = document.getElementById('cartSummary');
+            const cartStatus = document.getElementById('cartStatus');
             const subtotal = document.getElementById('subtotal');
             const total = document.getElementById('total');
+            const shipping = document.getElementById('shipping');
+            
+            await cart.sync();
+
+            // Show login prompt only if truly empty AND not authenticated
+            if (!api.isAuthenticated() && cart.items.length === 0) {
+                cartItems.innerHTML = '';
+                emptyCart.classList.add('hidden');
+                cartSummary.classList.add('hidden');
+                loginPrompt.classList.remove('hidden');
+                cartStatus.textContent = 'Sign in to sync your cart across devices';
+                return;
+            }
+
+            // For guests with items OR logged in users - render the cart
+            if (!api.isAuthenticated()) {
+                loginPrompt.classList.add('hidden');
+                cartStatus.textContent = 'Sign in to sync your cart across devices';
+            } else {
+                loginPrompt.classList.add('hidden');
+                cartStatus.textContent = '';
+            }
             
             if (cart.items.length === 0) {
                 cartItems.innerHTML = '';
                 emptyCart.classList.remove('hidden');
                 cartSummary.classList.add('hidden');
+                cartStatus.textContent = '';
                 return;
             }
             
             emptyCart.classList.add('hidden');
             cartSummary.classList.remove('hidden');
+
+            // If not authenticated, show login prompt for checkout
+            if (!api.isAuthenticated()) {
+                cartStatus.textContent = 'Sign in to sync your cart across devices';
+            } else {
+                cartStatus.textContent = '';
+            }
             
             cartItems.innerHTML = cart.items.map(item => `
                 <div class="bg-white rounded-2xl p-4 shadow-soft flex items-center gap-4">
                     <img src="${item.image}" alt="${item.name}" class="w-24 h-24 object-cover rounded-xl">
                     <div class="flex-1">
                         <h3 class="font-bold text-brand-dark">${item.name}</h3>
-                        <p class="text-gray-500">$${item.price.toFixed(2)}</p>
+                            <p class="text-gray-500">₹${(item.price * 83).toLocaleString('en-IN')}</p>
                     </div>
                     <div class="flex items-center gap-3">
                         <button class="quantity-btn w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100" data-id="${item.id}" data-action="decrease">
@@ -154,7 +325,7 @@
                         </button>
                     </div>
                     <div class="text-right">
-                        <p class="font-bold text-brand-dark">$${(item.price * item.quantity).toFixed(2)}</p>
+                        <p class="font-bold text-brand-dark">₹${((item.price * item.quantity) * 83).toLocaleString('en-IN')}</p>
                         <button class="remove-btn text-gray-400 hover:text-red-500 text-sm mt-1" data-id="${item.id}">
                             <i class="fa-solid fa-trash"></i>
                         </button>
@@ -162,46 +333,150 @@
                 </div>
             `).join('');
             
-            subtotal.textContent = `$${cart.getTotal().toFixed(2)}`;
-            total.textContent = `$${cart.getTotal().toFixed(2)}`;
+            const cartTotal = cart.getTotal() * 83;
+            const shippingCost = cartTotal >= 41500 ? 0 : 2500;
+            const tax = cartTotal * 0.08;
+            const grandTotal = cartTotal + shippingCost + tax;
+            
+            subtotal.textContent = `₹${cartTotal.toLocaleString('en-IN')}`;
+            shipping.textContent = shippingCost === 0 ? 'Free' : `₹${shippingCost.toLocaleString('en-IN')}`;
+            total.textContent = `₹${grandTotal.toLocaleString('en-IN')}`;
             
             document.querySelectorAll('.quantity-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
+                btn.addEventListener('click', async () => {
                     const id = btn.dataset.id;
                     const action = btn.dataset.action;
                     const item = cart.items.find(i => i.id === id);
                     if (item) {
-                        if (action === 'increase') {
-                            item.quantity += 1;
-                        } else {
-                            item.quantity = Math.max(1, item.quantity - 1);
-                        }
-                        cart.save();
-                        cart.updateBadge();
+                        const newQty = action === 'increase' ? item.quantity + 1 : Math.max(1, item.quantity - 1);
+                        await cart.updateQuantity(id, newQty);
                         renderCart();
                     }
                 });
             });
             
             document.querySelectorAll('.remove-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    cart.remove(btn.dataset.id);
+                btn.addEventListener('click', async () => {
+                    await cart.remove(btn.dataset.id);
                     renderCart();
                 });
             });
             
-            document.getElementById('clearCartBtn').addEventListener('click', () => {
-                cart.clear();
-                renderCart();
+            document.getElementById('clearCartBtn').addEventListener('click', async () => {
+                if (!api.isAuthenticated()) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                if (confirm('Are you sure you want to clear your cart?')) {
+                    await cart.clear();
+                    renderCart();
+                }
             });
             
             document.getElementById('checkoutBtn').addEventListener('click', () => {
-                alert('Checkout functionality coming soon!');
+                if (!api.isAuthenticated()) {
+                    window.location.href = 'login.html';
+                } else {
+                    document.getElementById('checkoutModal').classList.remove('hidden');
+                }
+            });
+            
+            document.getElementById('closeCheckout').addEventListener('click', () => {
+                document.getElementById('checkoutModal').classList.add('hidden');
+            });
+            
+            document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(e.target);
+                const orderData = {
+                    items: cart.items.map(item => ({
+                        product: item.id,
+                        name: item.name,
+                        image: item.image,
+                        price: item.price,
+                        quantity: item.quantity
+                    })),
+                    shippingAddress: {
+                        fullName: formData.get('fullName'),
+                        email: formData.get('email'),
+                        phone: formData.get('phone'),
+                        address: formData.get('address'),
+                        city: formData.get('city'),
+                        state: formData.get('state'),
+                        zipCode: formData.get('zipCode'),
+                        country: formData.get('country')
+                    },
+                    paymentMethod: formData.get('paymentMethod'),
+                    notes: formData.get('notes')
+                };
+                
+                try {
+                    const user = api.getUser();
+                    if (user) {
+                        orderData.shippingAddress.email = user.email;
+                    }
+                    
+                    const result = await api.orders.create(orderData);
+                    
+                    document.getElementById('checkoutModal').classList.add('hidden');
+                    await cart.clear();
+                    
+                    alert('Order placed successfully! Order ID: ' + result.data._id);
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    alert('Failed to place order: ' + error.message);
+                }
             });
         }
         
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             renderCart();
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            document.getElementById('newsletterForm')?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const emailInput = document.getElementById('newsletterEmail');
+                const message = document.getElementById('newsletterMessage');
+                const button = e.target.querySelector('button');
+                button.disabled = true;
+                button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+                try {
+                    await api.newsletter.subscribe(emailInput.value);
+                    message.textContent = 'Successfully subscribed!';
+                    message.className = 'text-sm mt-2 text-green-400';
+                    message.classList.remove('hidden');
+                    emailInput.value = '';
+                } catch (error) {
+                    message.textContent = error.message;
+                    message.className = 'text-sm mt-2 text-red-400';
+                    message.classList.remove('hidden');
+                }
+                button.disabled = false;
+                button.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
+            });
+
+            const isAuth = await api.validateToken();
+            document.getElementById('authLink').textContent = isAuth ? 'Logout' : 'Login';
+            document.getElementById('authLink').href = isAuth ? '#' : 'login.html';
+
+            const mobileAuthLink = document.getElementById('mobileAuthLink');
+            if (mobileAuthLink) {
+                mobileAuthLink.textContent = isAuth ? 'Logout' : 'Login';
+                mobileAuthLink.href = isAuth ? '#' : 'login.html';
+            }
+
+            if (isAuth) {
+                const logoutHandler = (e) => {
+                    e.preventDefault();
+                    if (confirm('Logout?')) {
+                        api.auth.logout();
+                    }
+                };
+                document.getElementById('authLink').addEventListener('click', logoutHandler);
+                if (mobileAuthLink) mobileAuthLink.addEventListener('click', logoutHandler);
+            }
         });
     </script>
 </body>
