@@ -102,7 +102,6 @@ body {
 }
 
 .mobile-menu-btn {
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -111,6 +110,12 @@ body {
   gap: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+@media (max-width: 1023px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
 }
 
 .mobile-menu-btn span {
