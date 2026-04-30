@@ -28,14 +28,11 @@
 </head>
 <body class="text-gray-800 antialiased overflow-x-hidden bg-gray-50">
 
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 text-gray-800 bg-white/95 backdrop-blur-sm">
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 text-gray-800">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center">
                 <a href="index.html" class="flex items-center gap-2 cursor-pointer">
-                    <div class="w-8 h-8 bg-gradient-to-tr from-brand-dark to-brand-blue rounded-lg flex items-center justify-center text-white">
-                        <i class="fa-solid fa-paper-plane text-sm"></i>
-                    </div>
-                    <span class="text-xl font-bold tracking-tight text-brand-dark">InGraviton</span>
+                    <img src="/logo.svg" alt="InGraviton Logo" class="h-16 w-auto">
                 </a>
 
                 <div class="hidden lg:flex space-x-8 text-sm font-medium text-gray-600">
@@ -45,26 +42,35 @@
                     <a href="tools.html" class="nav-link hover:text-brand-dark transition">Tools</a>
                     <a href="about.html" class="nav-link hover:text-brand-dark transition">About</a>
                     <a href="support.html" class="nav-link hover:text-brand-dark transition">Support</a>
+                    <a href="orders.html" id="ordersLink" class="nav-link hover:text-brand-dark transition hidden">My Orders</a>
+                    <a href="admin.html" id="adminLink" class="nav-link hover:text-brand-dark transition hidden">Admin</a>
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <a href="cart.html" class="text-brand-dark relative">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span class="cart-badge absolute -top-1 -right-1 w-4 h-4 bg-brand-blue text-white text-[10px] rounded-full flex items-center justify-center">0</span>
+                    <button id="searchBtn" class="text-gray-500 hover:text-brand-dark transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <a href="wishlist.html" class="text-gray-500 hover:text-brand-dark transition relative">
+                        <i class="fa-solid fa-heart"></i>
+                        <span class="wishlist-badge absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
                     </a>
-                    
+                    <a href="cart.html" class="text-gray-500 hover:text-brand-dark transition relative">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="cart-badge absolute -top-1 -right-1 w-4 h-4 bg-brand-blue text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
+                    </a>
+
                     <div class="hidden md:flex items-center gap-3 ml-4 border-l pl-4 border-gray-200">
-                        <a href="#" id="authLink" class="text-sm font-medium text-gray-600 hover:text-brand-dark">Login</a>
+                        <a href="login.html" id="authLink" class="text-sm font-medium text-gray-600 hover:text-brand-dark">Login</a>
                     </div>
-                    
-                    <button id="mobileMenuBtn" class="lg:hidden text-gray-800 text-xl">
-                        <i class="fa-solid fa-bars"></i>
+
+                    <button id="mobileMenuBtn" class="mobile-menu-btn lg:hidden">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
                 </div>
             </div>
 
             <div id="mobileMenu" class="mobile-menu lg:hidden">
-                <div class="pt-4 pb-2 space-y-3">
+                <div class="px-6 pt-4 pb-2 space-y-3">
                     <a href="products.html" class="block py-2 text-gray-600 hover:text-brand-dark">Products</a>
                     <a href="frames.html" class="block py-2 text-gray-600 hover:text-brand-dark">Frame Assembly</a>
                     <a href="components.html" class="block py-2 text-gray-600 hover:text-brand-dark">Components</a>
@@ -80,7 +86,7 @@
                         </a>
                         <a href="cart.html" class="text-gray-600 hover:text-brand-dark relative">
                             <i class="fa-solid fa-cart-shopping"></i>
-                            <span class="cart-badge absolute -top-1 -right-1 w-4 h-4 bg-brand-blue text-white text-[10px] rounded-full flex items-center justify-center">0</span>
+                            <span class="cart-badge absolute -top-1 -right-1 w-4 h-4 bg-brand-blue text-white text-[10px] rounded-full flex items-center justify-center hidden">0</span>
                         </a>
                     </div>
                     <div class="pt-2 border-t border-gray-200">
@@ -206,8 +212,8 @@
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
                 <p>&copy; <span id="currentYear"></span> InGraviton Inc. All rights reserved.</p>
                 <div class="flex gap-6">
-                    <a href="about.html" class="hover:text-white">Privacy Policy</a>
-                    <a href="about.html" class="hover:text-white">Terms of Service</a>
+                    <a href="privacy-policy.html" class="hover:text-white">Privacy Policy</a>
+                    <a href="terms.html" class="hover:text-white">Terms of Service</a>
                 </div>
             </div>
         </div>
